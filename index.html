@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,7 +43,7 @@
         @keyframes typing { from { width: 0 } to { width: 280px } }
         @keyframes fadeOut { 0%, 80% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
 
-        /* BACKGROUND */
+        /* BACKGROUND SETUP */
         body {
             background-color: var(--bg-dark);
             background-image: 
@@ -77,28 +78,21 @@
             box-shadow: 0 25px 50px rgba(0,0,0,0.6);
         }
 
-        /* PERFECT CIRCLE LOGO */
-        .logo-wrapper {
+        /* LOGO FIX - Aspect Ratio focus */
+        .logo-container {
             width: 130px;
             height: 130px;
             margin: 0 auto 20px;
-            position: relative;
-        }
-
-        .profile-pic {
-            width: 100%;
-            height: 100%;
             border-radius: 50%;
             border: 3px solid var(--primary);
             overflow: hidden;
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.4);
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 0 25px rgba(0, 212, 255, 0.4);
-            background: #112240;
         }
 
-        .profile-pic img {
+        .logo-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -119,7 +113,6 @@
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.9rem;
             margin-bottom: 30px;
-            min-height: 20px;
             animation: colorShift 6s infinite;
         }
 
@@ -128,11 +121,11 @@
             50% { color: #ff00c1; }
         }
 
-        /* LIKE BUTTON */
+        /* LIKE SECTION */
         .like-section { position: relative; margin-bottom: 35px; }
 
         .like-btn {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(0, 212, 255, 0.1);
             border: 1px solid var(--primary);
             color: white;
             padding: 12px 28px;
@@ -147,7 +140,7 @@
         .like-btn.active {
             background: var(--primary);
             color: var(--bg-dark);
-            box-shadow: 0 0 15px var(--primary);
+            box-shadow: 0 0 20px var(--primary);
         }
 
         #thanks-msg {
@@ -166,7 +159,16 @@
             100% { opacity: 0; transform: translate(-50%, -30px); }
         }
 
-        /* CARDS */
+        /* LINKS SECTION */
+        .section-title {
+            text-align: left;
+            font-size: 0.75rem;
+            color: #8892b0;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
         .card {
             display: flex;
             align-items: center;
@@ -192,10 +194,8 @@
     <div class="bg-glow" id="glow"></div>
 
     <div class="container">
-        <div class="logo-wrapper">
-            <div class="profile-pic">
-                <img src="logo.png" alt="UzClaver">
-            </div>
+        <div class="logo-container">
+            <img src="logo.png" alt="UzClaver">
         </div>
 
         <h1 class="name">UzClaver</h1>
@@ -209,7 +209,7 @@
             </button>
         </div>
 
-        <div style="text-align: left; font-size: 0.7rem; color: #8892b0; margin-bottom: 15px; letter-spacing: 2px;">CONNECT WITH ME</div>
+        <div class="section-title">Mening loyihalarim</div>
 
         <a href="https://t.me/tiny_world_me_1" target="_blank" class="card">
             <div><i class="fab fa-telegram" style="color: #0088cc;"></i> Telegram</div>
@@ -233,7 +233,7 @@
     </div>
 
     <script>
-        // CLOCK
+        // UPDATED CLOCK
         setInterval(() => {
             const time = new Intl.DateTimeFormat('uz-UZ', { 
                 timeZone: 'Asia/Tashkent', hour12: false, 
@@ -242,13 +242,12 @@
             document.getElementById('clock').textContent = time;
         }, 1000);
 
-        // LIKE SYSTEM
+        // SMART LIKE SYSTEM (Single Vote, Persistent)
         const likeBtn = document.getElementById('likeBtn');
         const likeCountLabel = document.getElementById('likeCount');
         const thanksMsg = document.getElementById('thanks-msg');
 
-        // Logic: persistent and single-click
-        let totalLikes = parseInt(localStorage.getItem('uzclaver_total_likes')) || 124;
+        let totalLikes = parseInt(localStorage.getItem('uzclaver_total_likes')) || 69;
         let userHasLiked = localStorage.getItem('user_voted') === 'true';
 
         likeCountLabel.textContent = totalLikes;
@@ -260,7 +259,6 @@
                 userHasLiked = true;
                 likeBtn.classList.add('active');
                 
-                // Show Animation
                 thanksMsg.style.animation = 'floatUp 1.2s forwards';
                 setTimeout(() => { thanksMsg.style.animation = ''; }, 1250);
             } else {
@@ -273,11 +271,16 @@
             localStorage.setItem('user_voted', userHasLiked);
         };
 
-        // INTERACTIVE MOUSE GLOW
-        document.onmousemove = (e) => {
-            document.getElementById('glow').style.setProperty('--x', e.clientX + 'px');
-            document.getElementById('glow').style.setProperty('--y', e.clientY + 'px');
+        // MOUSE/TOUCH INTERACTIVITY
+        const handleMove = (e) => {
+            const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
+            const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+            document.getElementById('glow').style.setProperty('--x', x + 'px');
+            document.getElementById('glow').style.setProperty('--y', y + 'px');
         };
+
+        document.onmousemove = handleMove;
+        document.ontouchmove = handleMove;
     </script>
 </body>
 </html>
