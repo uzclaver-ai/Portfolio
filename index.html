@@ -6,9 +6,9 @@
     <title>UzClaver | Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* 1. ANIMATSIYALI FON */
+        /* 1. ASOSIY FON VA ANIMATSIYA */
         body {
-            background-color: #0a192f;
+            background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
             color: #ccd6f6;
             font-family: 'Segoe UI', sans-serif;
             margin: 0;
@@ -16,88 +16,108 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow: hidden;
-            position: relative;
+            overflow-x: hidden;
         }
 
-        /* Yumshoq aylanuvchi nur */
-        body::before {
-            content: "";
-            position: absolute;
-            width: 150%;
-            height: 150%;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.08) 0%, transparent 50%);
-            animation: pulse 10s ease-in-out infinite alternate;
+        .bg-glow {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(600px circle at var(--x, 50%) var(--y, 50%), rgba(0, 212, 255, 0.05), transparent 40%);
             z-index: -1;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1) translate(-10%, -10%); }
-            100% { transform: scale(1.2) translate(10%, 10%); }
         }
 
         .container {
             width: 90%;
             max-width: 400px;
             text-align: center;
-            padding: 20px;
-            z-index: 1;
+            padding: 40px 20px;
         }
 
-        /* 2. DUMALOQ LOGOTIP */
-        .profile-pic {Uzclaver official 
-            width: 125px;
-            height: 125px;
+        /* 2. LOGOTIP */
+        .profile-pic {
+            width: 130px; 
+            height: 130px;
             border-radius: 50%;
             border: 3px solid #00d4ff;
-            margin: 0 auto 25px;
+            margin: 0 auto 20px;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.25);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
             background: #112240;
         }
 
-        .profile-pic img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .profile-pic img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* 3. MATNLAR */
-        .name {Uzclaver 
-            font-size: 2.6rem;
-            margin: 0;
-            color: #ffffff;
-            font-weight: 700;
-        }
+        .name { font-size: 2.5rem; margin: 0; color: #fff; }
+        #clock { font-family: 'Courier New', monospace; color: #00d4ff; font-size: 1.6rem; margin: 10px 0; font-weight: bold; }
 
-        #clock {
+        /* 3. RANGI O'ZGARUVCHAN STATUS */
+        .status {
             font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 25px;
+            animation: colorChange 5s infinite;
+        }
+
+        @keyframes colorChange {
+            0% { color: #00d4ff; }
+            33% { color: #ff00c1; }
+            66% { color: #00ff9d; }
+            100% { color: #00d4ff; }
+        }
+
+        /* 4. LIKE TIZIMI */
+        .like-section {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .like-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+        }
+
+        .like-btn.active {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: #00d4ff;
             color: #00d4ff;
-            font-size: 1.6rem;
-            margin: 12px 0;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(0, 212, 255, 0.4);
         }
 
-        .description {Youtuber, writer"
-            color: #8892b0;
-            font-family: 'Courier New', monospace;
-            margin-bottom: 40px;
-            font-size: 0.95rem;
+        #thanks-msg {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #00ff9d;
+            font-weight: bold;
+            opacity: 0;
+            transition: 0.5s;
         }
 
-        /* 4. TUGMALAR */
-        .links-title {
-            text-align: left;
-            font-size: 0.75rem;
-            color: #8892b0;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .animate-thanks {
+            animation: thanksFade 1.5s forwards;
         }
+
+        @keyframes thanksFade {
+            0% { opacity: 0; transform: translate(-50%, 0); }
+            50% { opacity: 1; transform: translate(-50%, -20px); }
+            100% { opacity: 0; transform: translate(-50%, -40px); }
+        }
+
+        /* 5. TUGMALAR */
+        .links-title { text-align: left; font-size: 0.7rem; color: #8892b0; margin-bottom: 12px; letter-spacing: 2px; text-transform: uppercase; }
 
         .card {
             display: flex;
@@ -105,80 +125,105 @@
             justify-content: space-between;
             background: rgba(17, 34, 64, 0.7);
             border: 1px solid rgba(0, 212, 255, 0.1);
-            padding: 16px 22px;
-            border-radius: 14px;
-            margin-bottom: 15px;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 12px;
             text-decoration: none;
             color: #ccd6f6;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(8px);
+            transition: 0.3s;
+            backdrop-filter: blur(10px);
         }
 
-        .card:hover {
-            transform: translateY(-4px);
-            background: rgba(35, 53, 84, 0.9);
-            border-color: #00d4ff;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        .card-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .card i { font-size: 1.5rem; }
+        .card:hover { transform: translateY(-3px); border-color: #00d4ff; background: rgba(30, 41, 59, 0.8); }
+        .card-left { display: flex; align-items: center; gap: 15px; }
         .fa-telegram { color: #0088cc; }
         .fa-youtube { color: #ff0000; }
-        .chevron { font-size: 0.8rem !important; opacity: 0.4; }
-
+        .fa-hand-holding-heart { color: #ffbc00; }
     </style>
 </head>
 <body>
 
+    <div class="bg-glow" id="glow"></div>
+
     <div class="container">
         <div class="profile-pic">
-            <img src="logo.png" alt="UzClaver Logo">
+            <img src="logo.png" alt="UzClaver">
         </div>
 
         <h1 class="name">UzClaver</h1>
         <div id="clock">00:00:00</div>
-        <p class="description">Dev & Security_</p>
+        <div class="status">"Youtuber, writer, just a human"</div>
 
-        <div class="links-title">Ijtimoiy tarmoqlarim</div>
+        <div class="like-section">
+            <div id="thanks-msg">Raxmat! 🌟</div>
+            <button class="like-btn" id="likeBtn">
+                <i class="fas fa-thumbs-up"></i>
+                <span id="likeCount">0</span> Like
+            </button>
+        </div>
+
+        <div class="links-title">Ijtimoiy tarmoqlarim & Donat</div>
 
         <a href="https://t.me/tiny_world_me_1" target="_blank" class="card">
-            <div class="card-left">
-                <i class="fab fa-telegram"></i>
-                <span>Telegram Kanal</span>
-            </div>
-            <i class="fas fa-chevron-right chevron"></i>
+            <div class="card-left"><i class="fab fa-telegram"></i><span>Telegram Kanal</span></div>
+            <i class="fas fa-chevron-right" style="opacity: 0.3;"></i>
         </a>
 
         <a href="https://youtube.com/@uzclaver_official?si=4BUpX0H6P160Nm" target="_blank" class="card">
-            <div class="card-left">
-                <i class="fab fa-youtube"></i>
-                <span>YouTube Kanal</span>
-            </div>
-            <i class="fas fa-chevron-right chevron"></i>
+            <div class="card-left"><i class="fab fa-youtube"></i><span>YouTube Kanal</span></div>
+            <i class="fas fa-chevron-right" style="opacity: 0.3;"></i>
+        </a>
+
+        <a href="https://idonate.uz/d/Uzclaver" target="_blank" class="card" style="border-color: rgba(255, 188, 0, 0.3);">
+            <div class="card-left"><i class="fas fa-hand-holding-heart"></i><span>Donat qilish</span></div>
+            <i class="fas fa-chevron-right" style="opacity: 0.3;"></i>
         </a>
     </div>
 
     <script>
+        // Soat
         function updateClock() {
-            const options = { 
-                timeZone: 'Asia/Tashkent', 
-                hour12: false, 
-                hour: '2-digit', 
-                minute: '2-digit', 
-                second: '2-digit' 
-            };
-            const timeString = new Intl.DateTimeFormat('uz-UZ', options).format(new Date());
-            document.getElementById('clock').textContent = timeString;
+            const options = { timeZone: 'Asia/Tashkent', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            document.getElementById('clock').textContent = new Intl.DateTimeFormat('uz-UZ', options).format(new Date());
         }
         setInterval(updateClock, 1000);
         updateClock();
-    </script>
 
+        // Like Funksiyasi
+        const likeBtn = document.getElementById('likeBtn');
+        const likeCountLabel = document.getElementById('likeCount');
+        const thanksMsg = document.getElementById('thanks-msg');
+        
+        // LocalStorage dan like holatini olish (Sizning shaxsiy saytingiz uchun)
+        let likes = parseInt(localStorage.getItem('uzclaver_likes')) || 124; // Boshlang'ich son
+        let isLiked = localStorage.getItem('isLiked') === 'true';
+
+        likeCountLabel.textContent = likes;
+        if(isLiked) likeBtn.classList.add('active');
+
+        likeBtn.addEventListener('click', () => {
+            if(!isLiked) {
+                likes++;
+                isLiked = true;
+                thanksMsg.classList.add('animate-thanks');
+                setTimeout(() => thanksMsg.classList.remove('animate-thanks'), 1500);
+            } else {
+                likes--;
+                isLiked = false;
+            }
+            
+            likeBtn.classList.toggle('active');
+            likeCountLabel.textContent = likes;
+            localStorage.setItem('uzclaver_likes', likes);
+            localStorage.setItem('isLiked', isLiked);
+        });
+
+        // Fon effekti
+        document.addEventListener('mousemove', e => {
+            const glow = document.getElementById('glow');
+            glow.style.setProperty('--x', e.clientX + 'px');
+            glow.style.setProperty('--y', e.clientY + 'px');
+        });
+    </script>
 </body>
 </html>
