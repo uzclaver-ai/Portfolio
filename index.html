@@ -1,71 +1,151 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UzClaver AI | Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --bg: #0f172a; --card-bg: #1e293b; --text: #f8fafc; --accent: #38bdf8; --secondary: #94a3b8; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; display: flex; justify-content: center; min-height: 100vh; }
-        .container { max-width: 450px; width: 90%; padding: 50px 0; display: flex; flex-direction: column; align-items: center; }
-        .avatar { width: 140px; height: 140px; border-radius: 50%; border: 3px solid var(--accent); overflow: hidden; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); background: #1e293b; }
-        .avatar img { width: 100%; height: 100%; object-fit: cover; }
-        h1 { font-size: 32px; margin: 25px 0 5px; font-weight: 800; background: linear-gradient(to right, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .sub-text { color: var(--accent); font-weight: 600; margin-bottom: 25px; letter-spacing: 2px; font-family: monospace; }
-        .motivation { text-align: center; color: var(--secondary); line-height: 1.6; margin-bottom: 35px; background: rgba(30, 41, 59, 0.5); padding: 15px; border-radius: 10px; border: 1px dashed rgba(56, 189, 248, 0.3); }
-        .section-title { width: 100%; text-align: left; font-size: 12px; font-weight: 700; color: var(--secondary); margin: 20px 0 10px; text-transform: uppercase; }
-        .card { background: var(--card-bg); padding: 18px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); width: 100%; display: flex; justify-content: space-between; align-items: center; text-decoration: none; color: var(--text); margin-bottom: 12px; box-sizing: border-box; }
-        .card-info { display: flex; align-items: center; }
-        .card i { font-size: 20px; margin-right: 15px; }
+        /* ASOSIY STILLAR */
+        body {
+            background-color: #0a192f; /* To'q ko'k fon */
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .profile-wrapper {
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+        }
+
+        /* 1. DUMALOQ LOGOTIP */
+        .avatar-container {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 3px solid #00d4ff;
+            margin: 0 auto 20px auto;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            background-color: #112240;
+        }
+
+        .avatar-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 2. NOM VA SOAT */
+        .brand-name {Uzclaver 
+            font-size: 2.2rem;
+            margin: 10px 0 5px 0;
+            color: #e6f1ff;
+            font-weight: bold;
+        }
+
+        .live-clock {
+            font-family: 'Courier New', monospace;
+            color: #00d4ff;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .status-text {
+            color: #8892b0;
+            font-family: monospace;
+            margin-bottom: 30px;
+        }
+
+        /* 3. TELEGRAM TUGMASI */
+        .tg-button {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #112240;
+            color: #ccd6f6;
+            text-decoration: none;
+            padding: 15px 20px;
+            border-radius: 12px;
+            border: 1px solid #233554;
+            transition: 0.3s;
+        }
+
+        .tg-button:hover {
+            background-color: #233554;
+            transform: translateY(-3px);
+            border-color: #00d4ff;
+        }
+
+        .tg-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .tg-icon {
+            width: 25px;
+            height: 25px;
+            background-color: #0088cc;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="avatar"><img src="1000119356.jpg" alt="UzClaver AI"></div>
-        <h1>UzClaver AI</h1>
-        <div class="sub-text">Dev & Security_</div>
-        <div class="motivation">Tizimlarni <span style="color:#fbbf24">himoya qilish</span> va kelajakni AI bilan qurish vaqti keldi.</div>
-        <div class="section-title">Loyihalarim</div>
-        <a href="https://youtube.com/@uzclaver_official?si=4BUpX0H6P160Nm1U" target="_blank" class="card">
-            <div class="card-info"><i class="fab fa-youtube" style="color:#ef4444;"></i><span>UzClaver Official</span></div>
-            <i class="fas fa-chevron-right" style="color: var(--secondary);"></i>
-        </a>
-        <a href="https://t.me/uzclaver" target="_blank" class="card">
-            <div class="card-info"><i class="fab fa-telegram" style="color:#0ea5e9;"></i><span>Telegram Kanal</span></div>
-            <i class="fas fa-chevron-right" style="color: var(--secondary);"></i>
-        </a>
-    </div>
-</body>
-</htmlhttps://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.csshttps://youtube.com/@uzclaver_official?si=4BUpX0H6P160Nm1U<div class="profile-circle"></div>
 
-<div class="header-text">
-    <h1 style="margin-bottom: 5px;">UzClaver</h1>
-    <div id="clock" style="color: #00d4ff; font-weight: bold; letter-spacing: 2px;">00:00:00</div>
-    <p class="sub-text">Dev & Security_</p>
-</div>
-
-<div class="projects">
-    <a href="https://t.me/UzClaver" target="_blank" style="text-decoration: none;">
-        <div class="card">
-            <span>Telegram Kanal</span>
+    <div class="profile-wrapper">
+        
+        <div class="avatar-container">
+            <img src="https://via.placeholder.com/150" alt="UzClaver Logo">
         </div>
-    </a>
-</div>
 
-<script>
-    function updateClock() {
-        const options = { timeZone: 'Asia/Tashkent', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
-        document.getElementById('clock').innerText = new Intl.DateTimeFormat('uz-UZ', options).format(new Date());
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-</script>
-<a href="https://t.me/https://t.me/tiny_world_me_1 target="_blank" class="project-card">
-    <div class="icon">
-        <img src="telegram-icon.png" alt="TG">
+        <h1 class="brand-name">UzClaver</h1>
+        <div id="clock" class="live-clock">00:00:00</div>
+        <p class="status-text">Dev & Security_</p>
+
+        <div style="text-align: left; margin-top: 40px;">
+            <p style="font-size: 0.8rem; color: #8892b0; margin-bottom: 15px;">IJTIMOIY TARMOQLARIM</p>
+            
+            <a href="https://t.me/tiny_world_me_1" target="_blank" class="tg-button">
+                <div class="tg-left">
+                    <div class="tg-icon">✈</div>
+                    <span>Telegram Kanal</span>
+                </div>
+                <span>&rsaquo;</span>
+            </a>
+        </div>
+
     </div>
-    <span>Telegram Kanal</span>
-    <i class="arrow-right"></i>
-</a>
-https://t.me/
+
+    <script>
+        function updateClock() {
+            const options = { 
+                timeZone: 'Asia/Tashkent', 
+                hour12: false, 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit' 
+            };
+            const uzTime = new Intl.DateTimeFormat('uz-UZ', options).format(new Date());
+            document.getElementById('clock').innerText = uzTime;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock(); // Sahifa yuklanganda darhol ishga tushishi uchun
+    </script>
+
+</body>
+</html>
