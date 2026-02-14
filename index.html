@@ -11,11 +11,11 @@
         :root {
             --primary: #00d4ff;
             --bg-dark: #020617;
-            --card-bg: rgba(10, 25, 47, 0.8);
+            --card-bg: rgba(10, 25, 47, 0.85);
             --text-main: #ccd6f6;
         }
 
-        /* ASSALOMU ALAYKUM ANIMATION */
+        /* INTRO ANIMATION */
         #welcome-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -24,32 +24,31 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            animation: fadeOut 2.5s cubic-bezier(0.1, 0.7, 1.0, 0.1) forwards;
+            animation: fadeOut 2.5s forwards;
             pointer-events: none;
         }
 
         .welcome-text {
-            font-size: 2rem;
-            font-weight: bold;
+            font-size: 1.8rem;
             color: var(--primary);
             font-family: 'JetBrains Mono', monospace;
-            border-right: 4px solid var(--primary);
+            border-right: 3px solid var(--primary);
             white-space: nowrap;
             overflow: hidden;
             width: 0;
             animation: typing 1.5s steps(17) forwards;
         }
 
-        @keyframes typing { from { width: 0 } to { width: 320px } }
-        @keyframes fadeOut { 0% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
+        @keyframes typing { from { width: 0 } to { width: 280px } }
+        @keyframes fadeOut { 0%, 80% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
 
-        /* BACKGROUND GRID & GLOW */
+        /* BACKGROUND */
         body {
             background-color: var(--bg-dark);
             background-image: 
                 linear-gradient(rgba(0, 212, 255, 0.05) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
-            background-size: 30px 30px;
+            background-size: 40px 40px;
             color: var(--text-main);
             font-family: 'Segoe UI', sans-serif;
             margin: 0;
@@ -62,184 +61,222 @@
         .bg-glow {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(0, 212, 255, 0.15) 0%, transparent 50%);
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(0, 212, 255, 0.12) 0%, transparent 50%);
             z-index: -1;
-            transition: 0.1s;
         }
 
         .container {
             width: 90%;
-            max-width: 400px;
+            max-width: 380px;
             text-align: center;
             padding: 40px 20px;
             background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
-            border: 1px solid rgba(0, 212, 255, 0.1);
-            margin: 20px 0;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            backdrop-filter: blur(12px);
+            border-radius: 25px;
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
         }
 
-        /* LOGO */
-        .profile-pic {Uzclaver 
-            width: 140px; height: 140px;
+        /* PERFECT CIRCLE LOGO */
+        .logo-wrapper {
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .profile-pic {
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
-            border: 4px solid var(--primary);
-            margin: 0 auto 25px;
+            border: 3px solid var(--primary);
             overflow: hidden;
-            display: block;
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.4);
+            background: #112240;
         }
-        .profile-pic img { width: 100%; height: 100%; object-fit: cover; }
 
-        .name { font-size: 2.6rem; margin: 0; color: #fff; }
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-        /* CLOCK */
+        .name { font-size: 2.4rem; margin: 0; color: #fff; letter-spacing: 1px; }
+
         #clock {
             font-family: 'Orbitron', sans-serif;
             color: var(--primary);
             font-size: 1.8rem;
             margin: 15px 0;
-            letter-spacing: 4px;
-            text-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px var(--primary);
         }
 
         .status {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             margin-bottom: 30px;
-            animation: colorChange 5s infinite;
+            min-height: 20px;
+            animation: colorShift 6s infinite;
         }
 
-        @keyframes colorChange {
+        @keyframes colorShift {
             0%, 100% { color: var(--primary); }
             50% { color: #ff00c1; }
         }
 
-        /* LIKE SYSTEM */
+        /* LIKE BUTTON */
+        .like-section { position: relative; margin-bottom: 35px; }
+
         .like-btn {
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--primary);
             color: white;
-            padding: 12px 25px;
+            padding: 12px 28px;
             border-radius: 50px;
             cursor: pointer;
             transition: 0.3s;
-            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
-        
-        .like-btn:active { transform: scale(0.9); }
+
+        .like-btn.active {
+            background: var(--primary);
+            color: var(--bg-dark);
+            box-shadow: 0 0 15px var(--primary);
+        }
 
         #thanks-msg {
             position: absolute;
-            top: -30px;
-            left: 50%;
+            top: -35px; left: 50%;
             transform: translateX(-50%);
             color: #00ff9d;
             font-weight: bold;
             opacity: 0;
             pointer-events: none;
-            transition: 0.5s;
         }
 
-        /* LINKS */
+        @keyframes floatUp {
+            0% { opacity: 0; transform: translate(-50%, 0); }
+            50% { opacity: 1; transform: translate(-50%, -15px); }
+            100% { opacity: 0; transform: translate(-50%, -30px); }
+        }
+
+        /* CARDS */
         .card {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(17, 34, 64, 0.6);
+            background: rgba(17, 34, 64, 0.5);
             border: 1px solid rgba(0, 212, 255, 0.1);
-            padding: 18px;
+            padding: 16px 20px;
             border-radius: 15px;
             margin-bottom: 12px;
             text-decoration: none;
             color: var(--text-main);
-            transition: 0.3s;
+            transition: 0.3s ease;
         }
 
-        .card:hover { border-color: var(--primary); transform: translateX(5px); }
-        .card i { font-size: 1.3rem; margin-right: 15px; }
+        .card:hover { border-color: var(--primary); transform: scale(1.02); background: rgba(17, 34, 64, 0.8); }
+        .card i { font-size: 1.3rem; width: 25px; text-align: center; margin-right: 12px; }
+
     </style>
 </head>
 <body>
 
-    <div id="welcome-screen">
-        <div class="welcome-text">Assalomu alaykum!</div>
-    </div>
-
+    <div id="welcome-screen"><div class="welcome-text">Assalomu alaykum!</div></div>
     <div class="bg-glow" id="glow"></div>
 
     <div class="container">
-        <div class="profile-pic">
-            <img src="logo.png" alt="UzClaver">
+        <div class="logo-wrapper">
+            <div class="profile-pic">
+                <img src="logo.png" alt="UzClaver">
+            </div>
         </div>
 
         <h1 class="name">UzClaver</h1>
         <div id="clock">00:00:00</div>
         <div class="status">"Youtuber, writer, just a human"</div>
 
-        <div style="margin-bottom: 40px; position: relative;">
+        <div class="like-section">
             <div id="thanks-msg">Raxmat! 🌟</div>
             <button class="like-btn" id="likeBtn">
-                <i class="fas fa-thumbs-up"></i> <span id="likeCount">124</span> Like
+                <i class="fas fa-thumbs-up"></i> <span id="likeCount">124</span>
             </button>
         </div>
 
-        <div style="text-align: left; font-size: 0.7rem; color: #8892b0; margin-bottom: 15px; letter-spacing: 2px;">SOCIAL & DONATE</div>
+        <div style="text-align: left; font-size: 0.7rem; color: #8892b0; margin-bottom: 15px; letter-spacing: 2px;">CONNECT WITH ME</div>
 
         <a href="https://t.me/tiny_world_me_1" target="_blank" class="card">
-            <div><i class="fab fa-telegram" style="color: #0088cc;"></i> Telegram Kanal</div>
-            <i class="fas fa-chevron-right" style="opacity: 0.3;"></i>
+            <div><i class="fab fa-telegram" style="color: #0088cc;"></i> Telegram</div>
+            <i class="fas fa-chevron-right" style="opacity: 0.2;"></i>
         </a>
 
-        <a href="https://youtube.com/@uzclaver_official?si=4BUpX0H6P160Nm" target="_blank" class="card">
-            <div><i class="fab fa-youtube" style="color: #ff0000;"></i> YouTube Kanal</div>
-            <i class="fas fa-chevron-right" style="opacity: 0.3;"></i>
+        <a href="https://youtube.com/@uzclaver_official" target="_blank" class="card">
+            <div><i class="fab fa-youtube" style="color: #ff0000;"></i> YouTube</div>
+            <i class="fas fa-chevron-right" style="opacity: 0.2;"></i>
+        </a>
+
+        <a href="https://instagram.com/uzclaver_official" target="_blank" class="card">
+            <div><i class="fab fa-instagram" style="color: #e4405f;"></i> Instagram</div>
+            <i class="fas fa-chevron-right" style="opacity: 0.2;"></i>
         </a>
 
         <a href="https://idonate.uz/d/Uzclaver" target="_blank" class="card" style="border-color: rgba(255, 188, 0, 0.3);">
-            <div><i class="fas fa-heart" style="color: #ffbc00;"></i> Donat qilish</div>
-            <i class="fas fa-chevron-right" style="opacity: 0.3;"></i>
+            <div><i class="fas fa-heart" style="color: #ffbc00;"></i> Donate</div>
+            <i class="fas fa-chevron-right" style="opacity: 0.2;"></i>
         </a>
     </div>
 
     <script>
-        // CLOCK LOGIC
-        function updateClock() {
-            const options = { timeZone: 'Asia/Tashkent', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
-            document.getElementById('clock').textContent = new Intl.DateTimeFormat('uz-UZ', options).format(new Date());
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
+        // CLOCK
+        setInterval(() => {
+            const time = new Intl.DateTimeFormat('uz-UZ', { 
+                timeZone: 'Asia/Tashkent', hour12: false, 
+                hour: '2-digit', minute: '2-digit', second: '2-digit' 
+            }).format(new Date());
+            document.getElementById('clock').textContent = time;
+        }, 1000);
 
-        // LIKE LOGIC
+        // LIKE SYSTEM
         const likeBtn = document.getElementById('likeBtn');
+        const likeCountLabel = document.getElementById('likeCount');
         const thanksMsg = document.getElementById('thanks-msg');
-        let count = 124;
+
+        // Logic: persistent and single-click
+        let totalLikes = parseInt(localStorage.getItem('uzclaver_total_likes')) || 124;
+        let userHasLiked = localStorage.getItem('user_voted') === 'true';
+
+        likeCountLabel.textContent = totalLikes;
+        if(userHasLiked) likeBtn.classList.add('active');
 
         likeBtn.onclick = () => {
-            count++;
-            document.getElementById('likeCount').innerText = count;
-            thanksMsg.style.opacity = '1';
-            thanksMsg.style.top = '-45px';
-            setTimeout(() => { 
-                thanksMsg.style.opacity = '0'; 
-                thanksMsg.style.top = '-30px'; 
-            }, 1200);
+            if(!userHasLiked) {
+                totalLikes++;
+                userHasLiked = true;
+                likeBtn.classList.add('active');
+                
+                // Show Animation
+                thanksMsg.style.animation = 'floatUp 1.2s forwards';
+                setTimeout(() => { thanksMsg.style.animation = ''; }, 1250);
+            } else {
+                totalLikes--;
+                userHasLiked = false;
+                likeBtn.classList.remove('active');
+            }
+            likeCountLabel.textContent = totalLikes;
+            localStorage.setItem('uzclaver_total_likes', totalLikes);
+            localStorage.setItem('user_voted', userHasLiked);
         };
 
-        // INTERACTIVE GLOW
+        // INTERACTIVE MOUSE GLOW
         document.onmousemove = (e) => {
-            const glow = document.getElementById('glow');
-            glow.style.setProperty('--x', e.clientX + 'px');
-            glow.style.setProperty('--y', e.clientY + 'px');
-        };
-
-        // TOUCH SUPPORT
-        document.ontouchmove = (e) => {
-            const glow = document.getElementById('glow');
-            glow.style.setProperty('--x', e.touches[0].clientX + 'px');
-            glow.style.setProperty('--y', e.touches[0].clientY + 'px');
+            document.getElementById('glow').style.setProperty('--x', e.clientX + 'px');
+            document.getElementById('glow').style.setProperty('--y', e.clientY + 'px');
         };
     </script>
 </body>
