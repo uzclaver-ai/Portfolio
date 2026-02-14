@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,8 +42,8 @@
         @keyframes typing { from { width: 0 } to { width: 280px } }
         @keyframes fadeOut { 0%, 80% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
 
-        /* BACKGROUND SETUP */
-        body {https://github.com/uzclaver-ai/Portfolio/blob/main/file_00000000fb9c722fa4644c6ba11c91f7%20(1).jpg
+        /* BACKGROUND SETTINGS */
+        body {
             background-color: var(--bg-dark);
             background-image: 
                 linear-gradient(rgba(0, 212, 255, 0.05) 1px, transparent 1px),
@@ -78,8 +77,8 @@
             box-shadow: 0 25px 50px rgba(0,0,0,0.6);
         }
 
-        /* LOGO FIX - Aspect Ratio focus */
-        .logo-container {https://github.com/uzclaver-ai/Portfolio/blob/main/file_00000000fb9c722fa4644c6ba11c91f7%20(1).jpg
+        /* PERFECT CIRCLE LOGO */
+        .logo-container {
             width: 130px;
             height: 130px;
             margin: 0 auto 20px;
@@ -90,6 +89,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            background: #112240;
         }
 
         .logo-container img {
@@ -100,6 +100,7 @@
 
         .name { font-size: 2.4rem; margin: 0; color: #fff; letter-spacing: 1px; }
 
+        /* DIGITAL CLOCK */
         #clock {
             font-family: 'Orbitron', sans-serif;
             color: var(--primary);
@@ -159,7 +160,7 @@
             100% { opacity: 0; transform: translate(-50%, -30px); }
         }
 
-        /* LINKS SECTION */
+        /* CARDS */
         .section-title {
             text-align: left;
             font-size: 0.75rem;
@@ -195,7 +196,7 @@
 
     <div class="container">
         <div class="logo-container">
-            <img src="logo.png" alt="UzClaver">
+            <img src="https://raw.githubusercontent.com/uzclaver-ai/Portfolio/main/file_00000000fb9c722fa4644c6ba11c91f7%20(1).jpg" alt="UzClaver Logo">
         </div>
 
         <h1 class="name">UzClaver</h1>
@@ -233,7 +234,7 @@
     </div>
 
     <script>
-        // UPDATED CLOCK
+        // LIVE CLOCK
         setInterval(() => {
             const time = new Intl.DateTimeFormat('uz-UZ', { 
                 timeZone: 'Asia/Tashkent', hour12: false, 
@@ -242,12 +243,12 @@
             document.getElementById('clock').textContent = time;
         }, 1000);
 
-        // SMART LIKE SYSTEM (Single Vote, Persistent)
+        // PERSISTENT LIKE SYSTEM
         const likeBtn = document.getElementById('likeBtn');
         const likeCountLabel = document.getElementById('likeCount');
         const thanksMsg = document.getElementById('thanks-msg');
 
-        let totalLikes = parseInt(localStorage.getItem('uzclaver_total_likes')) || 69;
+        let totalLikes = parseInt(localStorage.getItem('uzclaver_total_likes')) || 124;
         let userHasLiked = localStorage.getItem('user_voted') === 'true';
 
         likeCountLabel.textContent = totalLikes;
@@ -258,7 +259,6 @@
                 totalLikes++;
                 userHasLiked = true;
                 likeBtn.classList.add('active');
-                
                 thanksMsg.style.animation = 'floatUp 1.2s forwards';
                 setTimeout(() => { thanksMsg.style.animation = ''; }, 1250);
             } else {
@@ -271,14 +271,13 @@
             localStorage.setItem('user_voted', userHasLiked);
         };
 
-        // MOUSE/TOUCH INTERACTIVITY
+        // INTERACTIVE GLOW EFFECT
         const handleMove = (e) => {
             const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
             const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
             document.getElementById('glow').style.setProperty('--x', x + 'px');
             document.getElementById('glow').style.setProperty('--y', y + 'px');
         };
-
         document.onmousemove = handleMove;
         document.ontouchmove = handleMove;
     </script>
