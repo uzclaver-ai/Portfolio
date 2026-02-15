@@ -42,15 +42,13 @@
         @keyframes typing { from { width: 0 } to { width: 280px } }
         @keyframes fadeOut { 0%, 85% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
 
-        /* BACKGROUND WITH IMAGE */
+        /* DYNAMIC BACKGROUND */
         body {
             background-color: var(--bg-dark);
-            /* Siz yuborgan orqa fon rasmi */
             background-image: url('https://raw.githubusercontent.com/uzclaver-ai/Portfolio/main/File_000000009064720a8caadd75e517c23c.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            background-repeat: no-repeat;
             color: var(--text-main);
             font-family: 'Segoe UI', sans-serif;
             margin: 0;
@@ -58,21 +56,14 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* Overlay to make content readable over background */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(2, 6, 23, 0.7); /* Rasmni biroz qorong'ulashtiradi */
-            z-index: -1;
-        }
-
-        .bg-glow {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(0, 212, 255, 0.15) 0%, transparent 50%);
+            background: rgba(2, 6, 23, 0.7);
             z-index: -1;
         }
 
@@ -82,10 +73,11 @@
             text-align: center;
             padding: 40px 20px;
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(15px);
             border-radius: 25px;
             border: 1px solid rgba(0, 212, 255, 0.15);
             box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            z-index: 1;
         }
 
         .logo-container {
@@ -96,12 +88,11 @@
             overflow: hidden;
             box-shadow: 0 0 25px rgba(0, 212, 255, 0.4);
             display: flex; justify-content: center; align-items: center;
-            background: #112240;
         }
 
         .logo-container img { width: 100%; height: 100%; object-fit: cover; }
 
-        .name { font-size: 2.4rem; margin: 0; color: #fff; letter-spacing: 1px; }
+        .name { font-size: 2.4rem; margin: 0; color: #fff; }
 
         #clock {
             font-family: 'Orbitron', sans-serif;
@@ -109,7 +100,6 @@
             font-size: 1.8rem;
             margin: 15px 0;
             letter-spacing: 3px;
-            text-shadow: 0 0 10px var(--primary);
         }
 
         .status {
@@ -121,31 +111,18 @@
 
         @keyframes colorShift { 0%, 100% { color: var(--primary); } 50% { color: #ff00c1; } }
 
-        /* LIKE SECTION */
-        .like-section { position: relative; margin-bottom: 35px; }
+        /* LIKE BUTTON */
         .like-btn {
             background: rgba(0, 212, 255, 0.1);
             border: 1px solid var(--primary);
             color: white;
-            padding: 12px 28px;
+            padding: 10px 25px;
             border-radius: 50px;
             cursor: pointer;
             transition: 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
+            margin-bottom: 30px;
         }
-        .like-btn.active { background: var(--primary); color: var(--bg-dark); box-shadow: 0 0 20px var(--primary); }
-        #thanks-msg {
-            position: absolute;
-            top: -35px; left: 50%; transform: translateX(-50%);
-            color: #00ff9d; font-weight: bold; opacity: 0; pointer-events: none;
-        }
-        @keyframes floatUp {
-            0% { opacity: 0; transform: translate(-50%, 0); }
-            50% { opacity: 1; transform: translate(-50%, -15px); }
-            100% { opacity: 0; transform: translate(-50%, -30px); }
-        }
+        .like-btn.active { background: var(--primary); color: #000; box-shadow: 0 0 15px var(--primary); }
 
         /* CARDS */
         .section-title {
@@ -157,76 +134,68 @@
             background: rgba(17, 34, 64, 0.5);
             border: 1px solid rgba(0, 212, 255, 0.1);
             padding: 16px 20px; border-radius: 15px; margin-bottom: 12px;
-            text-decoration: none; color: var(--text-main); transition: 0.3s ease;
+            text-decoration: none; color: var(--text-main); transition: 0.3s;
         }
-        .card:hover { border-color: var(--primary); transform: scale(1.02); background: rgba(17, 34, 64, 0.8); }
-        .card i { font-size: 1.3rem; width: 25px; text-align: center; margin-right: 12px; }
+        .card:hover { border-color: var(--primary); background: rgba(17, 34, 64, 0.8); }
+        .card i { font-size: 1.3rem; margin-right: 12px; }
     </style>
 </head>
 <body>
 
-    <audio id="introAudio" src="https://raw.githubusercontent.com/uzclaver-ai/Portfolio/main/1771145083702_-2147483648_-224194.ogg" preload="auto"></audio>
+    <audio id="introAudio" src="https://raw.githubusercontent.com/uzclaver-ai/Portfolio/main/1771145083702_-2147483648_-224194.ogg"></audio>
 
     <div id="welcome-screen">
         <div class="welcome-text">Assalomu alaykum!</div>
     </div>
 
-    <div class="bg-glow" id="glow"></div>
-
     <div class="container">
         <div class="logo-container">
-            <img src="https://raw.githubusercontent.com/uzclaver-ai/Portfolio/main/file_00000000fb9c722fa4644c6ba11c91f7%20(1).jpg" alt="UzClaver Logo">
+            <img src="https://raw.githubusercontent.com/uzclaver-ai/Portfolio/main/file_00000000fb9c722fa4644c6ba11c91f7%20(1).jpg" alt="Logo">
         </div>
 
         <h1 class="name">UzClaver</h1>
         <div id="clock">00:00:00</div>
         <div class="status">"Youtuber, writer, just a human"</div>
 
-        <div class="like-section">
-            <div id="thanks-msg">Raxmat! 🌟</div>
-            <button class="like-btn" id="likeBtn">
-                <i class="fas fa-thumbs-up"></i> <span id="likeCount">124</span>
-            </button>
-        </div>
+        <button class="like-btn" id="likeBtn">
+            <i class="fas fa-thumbs-up"></i> <span id="likeCount">124</span> Like
+        </button>
 
         <div class="section-title">Ijtimoiy tarmoqlarim</div>
 
         <a href="https://t.me/tiny_world_me_1" target="_blank" class="card">
             <div><i class="fab fa-telegram" style="color: #0088cc;"></i> Telegram</div>
-            <i class="fas fa-chevron-right" style="opacity: 0.2;"></i>
+            <i class="fas fa-chevron-right"></i>
         </a>
 
         <a href="https://youtube.com/@uzclaver_official" target="_blank" class="card">
             <div><i class="fab fa-youtube" style="color: #ff0000;"></i> YouTube</div>
-            <i class="fas fa-chevron-right" style="opacity: 0.2;"></i>
+            <i class="fas fa-chevron-right"></i>
         </a>
 
         <a href="https://instagram.com/uzclaver_official" target="_blank" class="card">
             <div><i class="fab fa-instagram" style="color: #e4405f;"></i> Instagram</div>
-            <i class="fas fa-chevron-right" style="opacity: 0.2;"></i>
+            <i class="fas fa-chevron-right"></i>
         </a>
 
-        <a href="https://idonate.uz/d/Uzclaver" target="_blank" class="card" style="border-color: rgba(255, 188, 0, 0.3);">
+        <a href="https://idonate.uz/d/Uzclaver" target="_blank" class="card">
             <div><i class="fas fa-heart" style="color: #ffbc00;"></i> Donate</div>
-            <i class="fas fa-chevron-right" style="opacity: 0.2;"></i>
+            <i class="fas fa-chevron-right"></i>
         </a>
     </div>
 
     <script>
-        // Intro Audio Play Logic
-        window.addEventListener('load', () => {
-            const audio = document.getElementById('introAudio');
-            // Brauzerlar avtomatik ovozni bloklashi mumkin, foydalanuvchi saytga kirganda ishga tushadi
-            audio.play().catch(e => console.log("Ovoz ijrosi uchun foydalanuvchi interaksiyasi kerak"));
-            
-            // 3 soniyadan keyin ovozni to'xtatish (intro yo'qolganda)
-            setTimeout(() => {
-                audio.pause();
-                audio.currentTime = 0;
-            }, 3000);
-        });
+        // AUDIO & INTRO
+        const audio = document.getElementById('introAudio');
+        window.addEventListener('click', () => {
+            if (audio.paused) audio.play();
+        }, { once: true });
 
-        // LIVE CLOCK
+        setTimeout(() => {
+            audio.pause();
+        }, 4000);
+
+        // CLOCK
         setInterval(() => {
             const time = new Intl.DateTimeFormat('uz-UZ', { 
                 timeZone: 'Asia/Tashkent', hour12: false, 
@@ -235,42 +204,28 @@
             document.getElementById('clock').textContent = time;
         }, 1000);
 
-        // PERSISTENT LIKE SYSTEM
+        // LIKE
         const likeBtn = document.getElementById('likeBtn');
-        const likeCountLabel = document.getElementById('likeCount');
-        const thanksMsg = document.getElementById('thanks-msg');
+        let totalLikes = parseInt(localStorage.getItem('uzclaver_likes')) || 124;
+        let isLiked = localStorage.getItem('isLiked') === 'true';
 
-        let totalLikes = parseInt(localStorage.getItem('uzclaver_total_likes')) || 124;
-        let userHasLiked = localStorage.getItem('user_voted') === 'true';
-
-        likeCountLabel.textContent = totalLikes;
-        if(userHasLiked) likeBtn.classList.add('active');
+        document.getElementById('likeCount').textContent = totalLikes;
+        if(isLiked) likeBtn.classList.add('active');
 
         likeBtn.onclick = () => {
-            if(!userHasLiked) {
+            if(!isLiked) {
                 totalLikes++;
-                userHasLiked = true;
+                isLiked = true;
                 likeBtn.classList.add('active');
-                thanksMsg.style.animation = 'floatUp 1.2s forwards';
-                setTimeout(() => { thanksMsg.style.animation = ''; }, 1250);
             } else {
                 totalLikes--;
-                userHasLiked = false;
+                isLiked = false;
                 likeBtn.classList.remove('active');
             }
-            likeCountLabel.textContent = totalLikes;
-            localStorage.setItem('uzclaver_total_likes', totalLikes);
-            localStorage.setItem('user_voted', userHasLiked);
+            document.getElementById('likeCount').textContent = totalLikes;
+            localStorage.setItem('uzclaver_likes', totalLikes);
+            localStorage.setItem('isLiked', isLiked);
         };
-
-        const handleMove = (e) => {
-            const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
-            const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
-            document.getElementById('glow').style.setProperty('--x', x + 'px');
-            document.getElementById('glow').style.setProperty('--y', y + 'px');
-        };
-        document.onmousemove = handleMove;
-        document.ontouchmove = handleMove;
     </script>
 </body>
 </html>
