@@ -42,7 +42,7 @@
         @keyframes typing { from { width: 0 } to { width: 280px } }
         @keyframes fadeOut { 0%, 85% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
 
-        /* BACKGROUND FIX */
+        /* SHOIR-GEYMER ANIMATED BACKGROUND */
         body {
             margin: 0;
             padding: 0;
@@ -50,23 +50,40 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: var(--bg-dark);
-            /* Yangilangan orqa fon havolasi */
-            background-image: url('https://raw.githubusercontent.com/uzclaver-ai/Portfolio/main/file_000000009064720a8caadd75e517c23c.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
+            background: radial-gradient(circle at center, #0a192f 0%, #020617 100%);
             font-family: 'Segoe UI', sans-serif;
             color: var(--text-main);
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
-        .overlay {
+        /* Zarralar animatsiyasi uchun qatlam */
+        .particles {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(2, 6, 23, 0.75);
-            z-index: 0;
+            z-index: -1;
+            background: linear-gradient(rgba(0, 212, 255, 0.05) 1px, transparent 1px) 0 0 / 40px 40px,
+                        linear-gradient(90deg, rgba(0, 212, 255, 0.05) 1px, transparent 1px) 0 0 / 40px 40px;
+            animation: bgScroll 20s linear infinite;
+        }
+
+        @keyframes bgScroll {
+            from { background-position: 0 0; }
+            to { background-position: 40px 40px; }
+        }
+
+        .glow-sphere {
+            position: fixed;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(50px);
+            animation: floatGlow 10s ease-in-out infinite;
+        }
+
+        @keyframes floatGlow {
+            0%, 100% { transform: translate(-10%, -10%); }
+            50% { transform: translate(20%, 30%); }
         }
 
         .container {
@@ -76,11 +93,11 @@
             text-align: center;
             padding: 40px 20px;
             background: var(--card-bg);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-radius: 25px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 30px;
             border: 1px solid rgba(0, 212, 255, 0.2);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
             z-index: 1;
         }
 
@@ -105,6 +122,7 @@
             font-size: 1.8rem;
             margin: 15px 0;
             letter-spacing: 3px;
+            text-shadow: 0 0 10px var(--primary);
         }
 
         .status {
@@ -112,6 +130,7 @@
             font-size: 0.9rem;
             margin-bottom: 25px;
             color: #ff00c1;
+            opacity: 0.9;
         }
 
         /* LIKE SECTION */
@@ -133,7 +152,6 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            z-index: 2;
         }
 
         .like-btn.active {
@@ -147,9 +165,7 @@
             top: -25px;
             color: #00ff9d;
             font-weight: bold;
-            font-size: 1.1rem;
             opacity: 0;
-            pointer-events: none;
             transition: 0.5s;
         }
 
@@ -159,7 +175,7 @@
             100% { opacity: 0; transform: translateY(-40px); }
         }
 
-        /* LINKS */
+        /* CARDS */
         .section-title {
             text-align: left; font-size: 0.75rem; color: #8892b0;
             margin-bottom: 15px; letter-spacing: 2px; text-transform: uppercase;
@@ -180,7 +196,8 @@
 </head>
 <body>
 
-    <div class="overlay"></div>
+    <div class="particles"></div>
+    <div class="glow-sphere"></div>
 
     <audio id="introAudio">
         <source src="https://raw.githubusercontent.com/uzclaver-ai/Portfolio/main/1771145083702_-2147483648_-224194.ogg" type="audio/ogg">
@@ -235,6 +252,7 @@
     </div>
 
     <script>
+        // SOUND EFFECT
         const audio = document.getElementById('introAudio');
         document.body.addEventListener('click', () => {
             if (audio.paused) {
@@ -246,6 +264,7 @@
             }
         }, { once: true });
 
+        // CLOCK
         function updateClock() {
             const now = new Date();
             const timeString = now.toLocaleTimeString('uz-UZ', { 
@@ -260,11 +279,11 @@
         setInterval(updateClock, 1000);
         updateClock();
 
+        // LIKE SYSTEM
         const likeBtn = document.getElementById('likeBtn');
         const thanksMsg = document.getElementById('thanks-msg');
         const likeCountLabel = document.getElementById('likeCount');
 
-        // Boshlang'ich qiymat 69 ga o'zgartirildi
         let likes = parseInt(localStorage.getItem('uz_likes')) || 69;
         let hasLiked = localStorage.getItem('hasLiked') === 'true';
 
