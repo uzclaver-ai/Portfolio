@@ -17,7 +17,7 @@
             --dc-color: #5865F2;
         }
 
-        /* INTRO ANIMATION - "M" harfi sig'ishi uchun 320px */
+        /* INTRO ANIMATION */
         #welcome-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -41,7 +41,7 @@
             animation: typing 1.5s steps(18) forwards;
         }
 
-        @keyframes typing { from { width: 0 } to { width: 320px } }
+        @keyframes typing { from { width: 0 } to { width: 310px } }
         @keyframes fadeOut { 0%, 85% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
 
         body {
@@ -73,14 +73,13 @@
         #clock { font-family: 'Orbitron', sans-serif; color: var(--primary); font-size: 1.6rem; margin: 10px 0; letter-spacing: 3px; }
         .status { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; margin-bottom: 20px; color: #ff00c1; }
 
-        /* LIKE SECTION */
         .like-area { position: relative; margin-bottom: 30px; display: flex; flex-direction: column; align-items: center; }
         .like-btn { background: rgba(0, 212, 255, 0.1); border: 2px solid var(--primary); color: white; padding: 10px 24px; border-radius: 50px; cursor: pointer; transition: 0.3s; }
         .like-btn.active { background: var(--primary); color: #000; font-weight: bold; }
         #thanks-msg { position: absolute; top: -25px; color: #00ff9d; font-weight: bold; opacity: 0; transition: 0.4s; }
 
-        /* LINKS */
         .title-label { text-align: left; font-size: 0.7rem; color: #8892b0; margin-bottom: 10px; letter-spacing: 2px; text-transform: uppercase; }
+        
         .link-card {
             display: flex; align-items: center; justify-content: space-between;
             background: rgba(17, 34, 64, 0.8);
@@ -90,10 +89,9 @@
         }
         .link-card:hover { transform: scale(1.02); background: rgba(17, 34, 64, 1); }
         
-        /* YouTube uchun maxsus qizil hoshiya */
+        /* YouTube qizil hoshiya */
         .yt-border { border: 2px solid var(--yt-color) !important; }
 
-        /* MUROJAAT BLOKI */
         .bottom-right-tag {
             position: fixed; bottom: 15px; right: 15px;
             background: var(--primary); color: #000; padding: 8px 15px;
@@ -185,8 +183,8 @@
         const count = document.getElementById('likeCount');
         const thanks = document.getElementById('thanks-msg');
 
-        let likes = parseInt(localStorage.getItem('uz_l_final')) || 69;
-        let isLiked = localStorage.getItem('uz_d_final') === '1';
+        let likes = parseInt(localStorage.getItem('uz_l_last')) || 69;
+        let isLiked = localStorage.getItem('uz_d_last') === '1';
 
         count.textContent = likes;
         if(isLiked) btn.classList.add('active');
@@ -200,8 +198,8 @@
                 likes--; isLiked = false; btn.classList.remove('active'); 
             }
             count.textContent = likes;
-            localStorage.setItem('uz_l_final', likes);
-            localStorage.setItem('uz_d_final', isLiked ? '1' : '0');
+            localStorage.setItem('uz_l_last', likes);
+            localStorage.setItem('uz_d_last', isLiked ? '1' : '0');
         };
     </script>
 </body>
