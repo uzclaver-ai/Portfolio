@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,40 +42,45 @@
         @keyframes typing { from { width: 0 } to { width: 280px } }
         @keyframes fadeOut { 0%, 85% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
 
-        /* DYNAMIC BACKGROUND */
+        /* BACKROUND FIX */
         body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             background-color: var(--bg-dark);
+            /* Rasm manzili to'g'ridan-to'g'ri ko'rsatildi */
             background-image: url('https://raw.githubusercontent.com/uzclaver-ai/Portfolio/main/File_000000009064720a8caadd75e517c23c.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            color: var(--text-main);
+            background-repeat: no-repeat;
             font-family: 'Segoe UI', sans-serif;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            color: var(--text-main);
             overflow-x: hidden;
         }
 
-        body::before {
-            content: "";
+        /* Qorong'u qatlam (Overlay) */
+        .overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(2, 6, 23, 0.7);
-            z-index: -1;
+            background: rgba(2, 6, 23, 0.75);
+            z-index: 0;
         }
 
         .container {
+            position: relative;
             width: 90%;
             max-width: 380px;
             text-align: center;
             padding: 40px 20px;
             background: var(--card-bg);
             backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border-radius: 25px;
-            border: 1px solid rgba(0, 212, 255, 0.15);
+            border: 1px solid rgba(0, 212, 255, 0.2);
             box-shadow: 0 25px 50px rgba(0,0,0,0.6);
             z-index: 1;
         }
@@ -88,11 +93,12 @@
             overflow: hidden;
             box-shadow: 0 0 25px rgba(0, 212, 255, 0.4);
             display: flex; justify-content: center; align-items: center;
+            background: #112240;
         }
 
         .logo-container img { width: 100%; height: 100%; object-fit: cover; }
 
-        .name { font-size: 2.4rem; margin: 0; color: #fff; }
+        .name { font-size: 2.4rem; margin: 0; color: #fff; font-family: 'Orbitron', sans-serif; }
 
         #clock {
             font-family: 'Orbitron', sans-serif;
@@ -105,44 +111,81 @@
         .status {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.9rem;
-            margin-bottom: 30px;
-            animation: colorShift 6s infinite;
+            margin-bottom: 25px;
+            color: #ff00c1;
         }
 
-        @keyframes colorShift { 0%, 100% { color: var(--primary); } 50% { color: #ff00c1; } }
+        /* LIKE SECTION - RAHMAT TEXT TIKLANDI */
+        .like-section {
+            position: relative;
+            margin-bottom: 35px;
+            display: flex;
+            justify-content: center;
+        }
 
-        /* LIKE BUTTON */
         .like-btn {
             background: rgba(0, 212, 255, 0.1);
             border: 1px solid var(--primary);
             color: white;
-            padding: 10px 25px;
+            padding: 12px 28px;
             border-radius: 50px;
             cursor: pointer;
             transition: 0.3s;
-            margin-bottom: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 2;
         }
-        .like-btn.active { background: var(--primary); color: #000; box-shadow: 0 0 15px var(--primary); }
 
-        /* CARDS */
+        .like-btn.active {
+            background: var(--primary);
+            color: #020617;
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        #thanks-msg {
+            position: absolute;
+            top: -25px;
+            color: #00ff9d;
+            font-weight: bold;
+            font-size: 1.1rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.5s;
+        }
+
+        @keyframes floatUp {
+            0% { opacity: 0; transform: translateY(0); }
+            50% { opacity: 1; transform: translateY(-20px); }
+            100% { opacity: 0; transform: translateY(-40px); }
+        }
+
+        /* LINKS */
         .section-title {
             text-align: left; font-size: 0.75rem; color: #8892b0;
             margin-bottom: 15px; letter-spacing: 2px; text-transform: uppercase;
         }
+
         .card {
             display: flex; align-items: center; justify-content: space-between;
-            background: rgba(17, 34, 64, 0.5);
+            background: rgba(17, 34, 64, 0.6);
             border: 1px solid rgba(0, 212, 255, 0.1);
             padding: 16px 20px; border-radius: 15px; margin-bottom: 12px;
             text-decoration: none; color: var(--text-main); transition: 0.3s;
         }
-        .card:hover { border-color: var(--primary); background: rgba(17, 34, 64, 0.8); }
-        .card i { font-size: 1.3rem; margin-right: 12px; }
+
+        .card:hover { border-color: var(--primary); background: rgba(17, 34, 64, 0.9); transform: translateX(5px); }
+        .card i { font-size: 1.3rem; }
+
     </style>
 </head>
 <body>
 
-    <audio id="introAudio" src="https://raw.githubusercontent.com/uzclaver-ai/Portfolio/main/1771145083702_-2147483648_-224194.ogg"></audio>
+    <div class="overlay"></div>
+
+    <audio id="introAudio">
+        <source src="https://raw.githubusercontent.com/uzclaver-ai/Portfolio/main/1771145083702_-2147483648_-224194.ogg" type="audio/ogg">
+    </audio>
 
     <div id="welcome-screen">
         <div class="welcome-text">Assalomu alaykum!</div>
@@ -157,9 +200,12 @@
         <div id="clock">00:00:00</div>
         <div class="status">"Youtuber, writer, just a human"</div>
 
-        <button class="like-btn" id="likeBtn">
-            <i class="fas fa-thumbs-up"></i> <span id="likeCount">124</span> Like
-        </button>
+        <div class="like-section">
+            <div id="thanks-msg">Raxmat! 🌟</div>
+            <button class="like-btn" id="likeBtn">
+                <i class="fas fa-thumbs-up"></i> <span id="likeCount">124</span> Like
+            </button>
+        </div>
 
         <div class="section-title">Ijtimoiy tarmoqlarim</div>
 
@@ -178,54 +224,69 @@
             <i class="fas fa-chevron-right"></i>
         </a>
 
-        <a href="https://idonate.uz/d/Uzclaver" target="_blank" class="card">
+        <a href="https://idonate.uz/d/Uzclaver" target="_blank" class="card" style="border-color: rgba(255, 188, 0, 0.4);">
             <div><i class="fas fa-heart" style="color: #ffbc00;"></i> Donate</div>
             <i class="fas fa-chevron-right"></i>
         </a>
     </div>
 
     <script>
-        // AUDIO & INTRO
+        // SOUND EFFECT - Foydalanuvchi bir marta bossa ijro etiladi
         const audio = document.getElementById('introAudio');
-        window.addEventListener('click', () => {
-            if (audio.paused) audio.play();
+        document.body.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                setTimeout(() => {
+                    audio.pause();
+                    audio.currentTime = 0;
+                }, 4000);
+            }
         }, { once: true });
 
-        setTimeout(() => {
-            audio.pause();
-        }, 4000);
-
         // CLOCK
-        setInterval(() => {
-            const time = new Intl.DateTimeFormat('uz-UZ', { 
-                timeZone: 'Asia/Tashkent', hour12: false, 
-                hour: '2-digit', minute: '2-digit', second: '2-digit' 
-            }).format(new Date());
-            document.getElementById('clock').textContent = time;
-        }, 1000);
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('uz-UZ', { 
+                timeZone: 'Asia/Tashkent', 
+                hour12: false, 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit' 
+            });
+            document.getElementById('clock').textContent = timeString;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
 
-        // LIKE
+        // LIKE & THANKS MESSAGE
         const likeBtn = document.getElementById('likeBtn');
-        let totalLikes = parseInt(localStorage.getItem('uzclaver_likes')) || 124;
-        let isLiked = localStorage.getItem('isLiked') === 'true';
+        const thanksMsg = document.getElementById('thanks-msg');
+        const likeCountLabel = document.getElementById('likeCount');
 
-        document.getElementById('likeCount').textContent = totalLikes;
-        if(isLiked) likeBtn.classList.add('active');
+        let likes = parseInt(localStorage.getItem('uz_likes')) || 124;
+        let hasLiked = localStorage.getItem('hasLiked') === 'true';
 
-        likeBtn.onclick = () => {
-            if(!isLiked) {
-                totalLikes++;
-                isLiked = true;
+        likeCountLabel.textContent = likes;
+        if(hasLiked) likeBtn.classList.add('active');
+
+        likeBtn.addEventListener('click', () => {
+            if(!hasLiked) {
+                likes++;
+                hasLiked = true;
                 likeBtn.classList.add('active');
+                
+                // Animatsiyani ishga tushirish
+                thanksMsg.style.animation = 'floatUp 1.5s ease-out forwards';
+                setTimeout(() => { thanksMsg.style.animation = ''; }, 1600);
             } else {
-                totalLikes--;
-                isLiked = false;
+                likes--;
+                hasLiked = false;
                 likeBtn.classList.remove('active');
             }
-            document.getElementById('likeCount').textContent = totalLikes;
-            localStorage.setItem('uzclaver_likes', totalLikes);
-            localStorage.setItem('isLiked', isLiked);
-        };
+            likeCountLabel.textContent = likes;
+            localStorage.setItem('uz_likes', likes);
+            localStorage.setItem('hasLiked', hasLiked);
+        });
     </script>
 </body>
 </html>
