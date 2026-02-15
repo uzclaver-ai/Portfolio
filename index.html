@@ -24,7 +24,7 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            animation: fadeOut 2.5s forwards;
+            animation: fadeOut 3s forwards;
             pointer-events: none;
         }
 
@@ -40,15 +40,17 @@
         }
 
         @keyframes typing { from { width: 0 } to { width: 280px } }
-        @keyframes fadeOut { 0%, 80% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
+        @keyframes fadeOut { 0%, 85% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
 
-        /* BACKGROUND SETTINGS */
+        /* BACKGROUND WITH IMAGE */
         body {
             background-color: var(--bg-dark);
-            background-image: 
-                linear-gradient(rgba(0, 212, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
-            background-size: 40px 40px;
+            /* Siz yuborgan orqa fon rasmi */
+            background-image: url('https://raw.githubusercontent.com/uzclaver-ai/Portfolio/main/File_000000009064720a8caadd75e517c23c.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
             color: var(--text-main);
             font-family: 'Segoe UI', sans-serif;
             margin: 0;
@@ -58,10 +60,19 @@
             min-height: 100vh;
         }
 
+        /* Overlay to make content readable over background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 6, 23, 0.7); /* Rasmni biroz qorong'ulashtiradi */
+            z-index: -1;
+        }
+
         .bg-glow {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(0, 212, 255, 0.12) 0%, transparent 50%);
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(0, 212, 255, 0.15) 0%, transparent 50%);
             z-index: -1;
         }
 
@@ -77,30 +88,21 @@
             box-shadow: 0 25px 50px rgba(0,0,0,0.6);
         }
 
-        /* PERFECT CIRCLE LOGO */
         .logo-container {
-            width: 130px;
-            height: 130px;
+            width: 130px; height: 130px;
             margin: 0 auto 20px;
             border-radius: 50%;
             border: 3px solid var(--primary);
             overflow: hidden;
             box-shadow: 0 0 25px rgba(0, 212, 255, 0.4);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: flex; justify-content: center; align-items: center;
             background: #112240;
         }
 
-        .logo-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .logo-container img { width: 100%; height: 100%; object-fit: cover; }
 
         .name { font-size: 2.4rem; margin: 0; color: #fff; letter-spacing: 1px; }
 
-        /* DIGITAL CLOCK */
         #clock {
             font-family: 'Orbitron', sans-serif;
             color: var(--primary);
@@ -117,14 +119,10 @@
             animation: colorShift 6s infinite;
         }
 
-        @keyframes colorShift {
-            0%, 100% { color: var(--primary); }
-            50% { color: #ff00c1; }
-        }
+        @keyframes colorShift { 0%, 100% { color: var(--primary); } 50% { color: #ff00c1; } }
 
         /* LIKE SECTION */
         .like-section { position: relative; margin-bottom: 35px; }
-
         .like-btn {
             background: rgba(0, 212, 255, 0.1);
             border: 1px solid var(--primary);
@@ -137,23 +135,12 @@
             align-items: center;
             gap: 10px;
         }
-
-        .like-btn.active {
-            background: var(--primary);
-            color: var(--bg-dark);
-            box-shadow: 0 0 20px var(--primary);
-        }
-
+        .like-btn.active { background: var(--primary); color: var(--bg-dark); box-shadow: 0 0 20px var(--primary); }
         #thanks-msg {
             position: absolute;
-            top: -35px; left: 50%;
-            transform: translateX(-50%);
-            color: #00ff9d;
-            font-weight: bold;
-            opacity: 0;
-            pointer-events: none;
+            top: -35px; left: 50%; transform: translateX(-50%);
+            color: #00ff9d; font-weight: bold; opacity: 0; pointer-events: none;
         }
-
         @keyframes floatUp {
             0% { opacity: 0; transform: translate(-50%, 0); }
             50% { opacity: 1; transform: translate(-50%, -15px); }
@@ -162,36 +149,28 @@
 
         /* CARDS */
         .section-title {
-            text-align: left;
-            font-size: 0.75rem;
-            color: #8892b0;
-            margin-bottom: 15px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            text-align: left; font-size: 0.75rem; color: #8892b0;
+            margin-bottom: 15px; letter-spacing: 2px; text-transform: uppercase;
         }
-
         .card {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            display: flex; align-items: center; justify-content: space-between;
             background: rgba(17, 34, 64, 0.5);
             border: 1px solid rgba(0, 212, 255, 0.1);
-            padding: 16px 20px;
-            border-radius: 15px;
-            margin-bottom: 12px;
-            text-decoration: none;
-            color: var(--text-main);
-            transition: 0.3s ease;
+            padding: 16px 20px; border-radius: 15px; margin-bottom: 12px;
+            text-decoration: none; color: var(--text-main); transition: 0.3s ease;
         }
-
         .card:hover { border-color: var(--primary); transform: scale(1.02); background: rgba(17, 34, 64, 0.8); }
         .card i { font-size: 1.3rem; width: 25px; text-align: center; margin-right: 12px; }
-
     </style>
 </head>
 <body>
 
-    <div id="welcome-screen"><div class="welcome-text">Assalomu alaykum!</div></div>
+    <audio id="introAudio" src="https://raw.githubusercontent.com/uzclaver-ai/Portfolio/main/1771145083702_-2147483648_-224194.ogg" preload="auto"></audio>
+
+    <div id="welcome-screen">
+        <div class="welcome-text">Assalomu alaykum!</div>
+    </div>
+
     <div class="bg-glow" id="glow"></div>
 
     <div class="container">
@@ -234,6 +213,19 @@
     </div>
 
     <script>
+        // Intro Audio Play Logic
+        window.addEventListener('load', () => {
+            const audio = document.getElementById('introAudio');
+            // Brauzerlar avtomatik ovozni bloklashi mumkin, foydalanuvchi saytga kirganda ishga tushadi
+            audio.play().catch(e => console.log("Ovoz ijrosi uchun foydalanuvchi interaksiyasi kerak"));
+            
+            // 3 soniyadan keyin ovozni to'xtatish (intro yo'qolganda)
+            setTimeout(() => {
+                audio.pause();
+                audio.currentTime = 0;
+            }, 3000);
+        });
+
         // LIVE CLOCK
         setInterval(() => {
             const time = new Intl.DateTimeFormat('uz-UZ', { 
@@ -271,7 +263,6 @@
             localStorage.setItem('user_voted', userHasLiked);
         };
 
-        // INTERACTIVE GLOW EFFECT
         const handleMove = (e) => {
             const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
             const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
