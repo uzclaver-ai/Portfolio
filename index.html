@@ -42,7 +42,7 @@
         @keyframes typing { from { width: 0 } to { width: 280px } }
         @keyframes fadeOut { 0%, 85% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
 
-        /* BACKROUND FIX */
+        /* BACKGROUND FIX */
         body {
             margin: 0;
             padding: 0;
@@ -51,8 +51,8 @@
             justify-content: center;
             align-items: center;
             background-color: var(--bg-dark);
-            /* Rasm manzili to'g'ridan-to'g'ri ko'rsatildi */
-            background-image: url('https://raw.githubusercontent.com/uzclaver-ai/Portfolio/main/File_000000009064720a8caadd75e517c23c.png');
+            /* Yangilangan orqa fon havolasi */
+            background-image: url('https://raw.githubusercontent.com/uzclaver-ai/Portfolio/main/file_000000009064720a8caadd75e517c23c.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -62,7 +62,6 @@
             overflow-x: hidden;
         }
 
-        /* Qorong'u qatlam (Overlay) */
         .overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -115,7 +114,7 @@
             color: #ff00c1;
         }
 
-        /* LIKE SECTION - RAHMAT TEXT TIKLANDI */
+        /* LIKE SECTION */
         .like-section {
             position: relative;
             margin-bottom: 35px;
@@ -203,7 +202,7 @@
         <div class="like-section">
             <div id="thanks-msg">Raxmat! 🌟</div>
             <button class="like-btn" id="likeBtn">
-                <i class="fas fa-thumbs-up"></i> <span id="likeCount">124</span> Like
+                <i class="fas fa-thumbs-up"></i> <span id="likeCount">69</span> Like
             </button>
         </div>
 
@@ -224,6 +223,11 @@
             <i class="fas fa-chevron-right"></i>
         </a>
 
+        <a href="https://discord.com/invite/fuGuswD5u" target="_blank" class="card">
+            <div><i class="fab fa-discord" style="color: #5865F2;"></i> Discord Server</div>
+            <i class="fas fa-chevron-right"></i>
+        </a>
+
         <a href="https://idonate.uz/d/Uzclaver" target="_blank" class="card" style="border-color: rgba(255, 188, 0, 0.4);">
             <div><i class="fas fa-heart" style="color: #ffbc00;"></i> Donate</div>
             <i class="fas fa-chevron-right"></i>
@@ -231,7 +235,6 @@
     </div>
 
     <script>
-        // SOUND EFFECT - Foydalanuvchi bir marta bossa ijro etiladi
         const audio = document.getElementById('introAudio');
         document.body.addEventListener('click', () => {
             if (audio.paused) {
@@ -243,7 +246,6 @@
             }
         }, { once: true });
 
-        // CLOCK
         function updateClock() {
             const now = new Date();
             const timeString = now.toLocaleTimeString('uz-UZ', { 
@@ -258,12 +260,12 @@
         setInterval(updateClock, 1000);
         updateClock();
 
-        // LIKE & THANKS MESSAGE
         const likeBtn = document.getElementById('likeBtn');
         const thanksMsg = document.getElementById('thanks-msg');
         const likeCountLabel = document.getElementById('likeCount');
 
-        let likes = parseInt(localStorage.getItem('uz_likes')) || 124;
+        // Boshlang'ich qiymat 69 ga o'zgartirildi
+        let likes = parseInt(localStorage.getItem('uz_likes')) || 69;
         let hasLiked = localStorage.getItem('hasLiked') === 'true';
 
         likeCountLabel.textContent = likes;
@@ -274,8 +276,6 @@
                 likes++;
                 hasLiked = true;
                 likeBtn.classList.add('active');
-                
-                // Animatsiyani ishga tushirish
                 thanksMsg.style.animation = 'floatUp 1.5s ease-out forwards';
                 setTimeout(() => { thanksMsg.style.animation = ''; }, 1600);
             } else {
