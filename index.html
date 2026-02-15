@@ -8,6 +8,38 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     
     <style>
+        :root {
+            --primary: #00d4ff;
+            --bg-dark: #020617;
+        }
+
+        /* INTRO ANIMATION */
+        #welcome-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeOut 2.5s forwards;
+            pointer-events: none;
+        }
+
+        .welcome-text {
+            font-size: 1.8rem;
+            color: var(--primary);
+            font-family: 'JetBrains Mono', monospace;
+            border-right: 3px solid var(--primary);
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            animation: typing 1.2s steps(17) forwards;
+        }
+
+        @keyframes typing { from { width: 0 } to { width: 260px } }
+        @keyframes fadeOut { 0%, 80% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
+
         body {
             margin: 0;
             padding: 0;
@@ -29,7 +61,7 @@
             padding: 30px 20px;
             background: rgba(10, 25, 47, 0.95);
             border-radius: 25px;
-            border: 2px solid #00d4ff;
+            border: 2px solid var(--primary);
             box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
             z-index: 5;
         }
@@ -38,7 +70,7 @@
             width: 120px; height: 120px;
             margin: 0 auto 15px;
             border-radius: 50%;
-            border: 3px solid #00d4ff;
+            border: 3px solid var(--primary);
             overflow: hidden;
         }
 
@@ -48,7 +80,7 @@
 
         #clock {
             font-family: 'Orbitron', sans-serif;
-            color: #00d4ff;
+            color: var(--primary);
             font-size: 1.6rem;
             margin: 10px 0;
             letter-spacing: 3px;
@@ -61,7 +93,6 @@
             color: #ff00c1;
         }
 
-        /* LIKE SECTION WITH THANKS */
         .like-area {
             position: relative;
             margin-bottom: 30px;
@@ -72,33 +103,29 @@
 
         .like-btn {
             background: rgba(0, 212, 255, 0.1);
-            border: 2px solid #00d4ff;
+            border: 2px solid var(--primary);
             color: white;
             padding: 10px 24px;
             border-radius: 50px;
             cursor: pointer;
             transition: 0.3s;
-            z-index: 2;
         }
 
         .like-btn.active {
-            background: #00d4ff;
+            background: var(--primary);
             color: #000;
             font-weight: bold;
         }
 
-        #thanks-popup {
+        #thanks-msg {
             position: absolute;
-            top: -30px;
+            top: -25px;
             color: #00ff9d;
             font-weight: bold;
-            font-family: 'JetBrains Mono', monospace;
             opacity: 0;
-            pointer-events: none;
-            transition: 0.5s;
+            transition: 0.4s;
         }
 
-        /* LINKS */
         .title-label {
             text-align: left; font-size: 0.7rem; color: #8892b0;
             margin-bottom: 10px; letter-spacing: 2px; text-transform: uppercase;
@@ -113,14 +140,13 @@
             font-size: 0.9rem;
         }
 
-        .link-card:hover { border-color: #00d4ff; transform: scale(1.02); }
+        .link-card:hover { border-color: var(--primary); transform: scale(1.02); }
 
-        /* MUROJAAT BLOKI */
         .bottom-right-tag {
             position: fixed;
             bottom: 15px;
             right: 15px;
-            background: #00d4ff;
+            background: var(--primary);
             color: #000;
             padding: 8px 15px;
             border-radius: 8px;
@@ -128,11 +154,18 @@
             font-size: 0.8rem;
             font-weight: bold;
             z-index: 100;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
     </style>
 </head>
 <body>
+
+    <audio id="introSfx">
+        <source src="https://raw.githubusercontent.com/uzclaver-ai/Portfolio/main/1771145083702_-2147483648_-224194.ogg" type="audio/ogg">
+    </audio>
+
+    <div id="welcome-screen">
+        <div class="welcome-text">Assalomu alaykum!</div>
+    </div>
 
     <div class="bottom-right-tag">
         MUROJAAT UCHUN: @uzclaver
@@ -148,7 +181,7 @@
         <div class="status">"Youtuber, writer, just a human"</div>
 
         <div class="like-area">
-            <div id="thanks-popup">Raxmat! 🌟</div>
+            <div id="thanks-msg">Raxmat! 🌟</div>
             <button class="like-btn" id="likeBtn">
                 <i class="fas fa-thumbs-up"></i> <span id="likeCount">69</span> Like
             </button>
@@ -181,13 +214,27 @@
             <i class="fas fa-chevron-right"></i>
         </a>
 
-        <a href="https://idonate.uz/d/Uzclaver" target="_blank" class="link-card" style="border-color: #ffbc00;">
+        <a href="https://discord.gg/kEXEbrfgR" target="_blank" class="link-card">
+            <div><i class="fab fa-discord"></i> Discord Server</div>
+            <i class="fas fa-chevron-right"></i>
+        </a>
+
+        <a href="https://idonate.uz/d/Uzclaver" target="_blank" class="link-card" style="border-color: #ffbc00; margin-top: 10px;">
             <div><i class="fas fa-heart" style="color: #ffbc00;"></i> IdonateUz - qo'llab quvvatlash uchun</div>
             <i class="fas fa-chevron-right"></i>
         </a>
     </div>
 
     <script>
+        // Audio va Intro logikasi
+        const sfx = document.getElementById('introSfx');
+        window.addEventListener('click', () => {
+            if (sfx.paused) {
+                sfx.play().catch(e => console.log("Audio play error"));
+            }
+        }, { once: true });
+
+        // Soat
         function updateTime() {
             const now = new Date();
             document.getElementById('clock').textContent = now.toLocaleTimeString('en-GB', { timeZone: 'Asia/Tashkent', hour12: false });
@@ -195,12 +242,13 @@
         setInterval(updateTime, 1000);
         updateTime();
 
+        // Like va Raxmat effekti
         const btn = document.getElementById('likeBtn');
         const count = document.getElementById('likeCount');
-        const thanks = document.getElementById('thanks-popup');
-        
-        let likes = parseInt(localStorage.getItem('uz_l')) || 69;
-        let isLiked = localStorage.getItem('uz_d') === '1';
+        const thanks = document.getElementById('thanks-msg');
+
+        let likes = parseInt(localStorage.getItem('uz_l_v3')) || 69;
+        let isLiked = localStorage.getItem('uz_d_v3') === '1';
 
         count.textContent = likes;
         if(isLiked) btn.classList.add('active');
@@ -210,11 +258,10 @@
                 likes++; 
                 isLiked = true; 
                 btn.classList.add('active');
-                // Raxmat yozuvini ko'rsatish
                 thanks.style.opacity = '1';
-                thanks.style.transform = 'translateY(-10px)';
-                setTimeout(() => {
-                    thanks.style.opacity = '0';
+                thanks.style.transform = 'translateY(-5px)';
+                setTimeout(() => { 
+                    thanks.style.opacity = '0'; 
                     thanks.style.transform = 'translateY(0)';
                 }, 1500);
             } else { 
@@ -223,8 +270,8 @@
                 btn.classList.remove('active'); 
             }
             count.textContent = likes;
-            localStorage.setItem('uz_l', likes);
-            localStorage.setItem('uz_d', isLiked ? '1' : '0');
+            localStorage.setItem('uz_l_v3', likes);
+            localStorage.setItem('uz_d_v3', isLiked ? '1' : '0');
         };
     </script>
 </body>
