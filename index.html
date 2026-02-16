@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="uz">
 <head>
@@ -14,7 +13,7 @@
         body { margin: 0; padding: 0; min-height: 100vh; background: #020617 linear-gradient(135deg, #020617 0%, #0a192f 50%, #020617 100%) no-repeat; font-family: 'Segoe UI', sans-serif; color: #ccd6f6; overflow: hidden; }
         
         #particle-canvas { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 10000; }
-        #welcome-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-dark); display: flex; justify(content: center; align-items: center; z-index: 9999; animation: fadeOut 2.8s forwards; pointer-events: none; }
+        #welcome-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-dark); display: flex; justify-content: center; align-items: center; z-index: 9999; animation: fadeOut 2.8s forwards; pointer-events: none; }
         .welcome-text { font-size: 1.8rem; color: var(--primary); font-family: 'JetBrains Mono', monospace; border-right: 3px solid var(--primary); white-space: nowrap; overflow: hidden; width: 0; animation: typing 1.5s steps(18) forwards; }
         @keyframes typing { from { width: 0 } to { width: 280px } }
         @keyframes fadeOut { 0%, 85% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
@@ -44,22 +43,19 @@
         .founder-circle img { width: 100%; height: 100%; object-fit: cover; }
         .founder-name { font-family: 'Orbitron'; font-size: 1.1rem; font-weight: bold; color: #fff; text-shadow: 0 0 10px var(--primary); margin-bottom: 15px; }
 
-        /* Video pleyer tuzatildi: Inline ijro va fon rangi */
         .video-wrapper { border: 3px solid var(--accent-red); border-radius: 15px; overflow: hidden; background: #000; position: relative; width: 100%; aspect-ratio: 16 / 9; }
-        video { width: 100%; height: 100%; object-fit: contain; background: #000; display: block; }
+        video { width: 100%; height: 100%; display: block; object-fit: contain; }
 
-        /* Yozuvlar bir-biriga chiqmasligi uchun o'zgartirildi */
-        .bottom-tag { position: fixed; bottom: 15px; right: 15px; background: var(--primary); color: #000; padding: 8px 12px; border-radius: 8px; font-weight: bold; font-size: 0.75rem; z-index: 1000; font-family: 'JetBrains Mono', monospace; max-width: 60%; }
-        .nav-text { position: fixed; bottom: 65px; left: 50%; transform: translateX(-50%); font-size: 0.7rem; color: var(--primary); z-index: 1000; font-family: 'JetBrains Mono'; opacity: 0.8; white-space: nowrap; }
+        /* Yozuvlar endi konteyner ichiga joylandi (ustma-ust tushmaydi) */
+        .footer-info { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding: 0 5px; }
+        .tag-info { background: var(--primary); color: #000; padding: 5px 10px; border-radius: 8px; font-weight: bold; font-size: 0.7rem; font-family: 'JetBrains Mono'; }
+        .hint-info { font-size: 0.65rem; color: var(--primary); font-family: 'JetBrains Mono'; opacity: 0.8; }
     </style>
 </head>
 <body onclick="startAudio()">
 
     <canvas id="particle-canvas"></canvas>
     <div id="welcome-screen"><div class="welcome-text">Assalomu alaykum!</div></div>
-    
-    <div class="bottom-tag">MUROJAAT UCHUN: @uzclaver</div>
-    <div class="nav-text">Media pleyer uchun suring →</div>
 
     <audio id="introAudio"><source src="intro.mp3" type="audio/mpeg"></audio>
     <audio id="mainAudio"></audio>
@@ -76,18 +72,20 @@
                     <div id="clock">00:00:00</div>
                     <div class="status">"Youtuber, writer, just a human"</div>
                     
-                    <button class="like-btn" id="likeBtn" onclick="doLike()" style="background:none; border:2px solid var(--primary); color:white; width:100%; padding:10px; border-radius:15px; font-family:'Orbitron'; margin-bottom:15px;">
-                        <i class="fas fa-thumbs-up"></i> <span id="likeCount">69</span> Like
+                    <button class="like-btn" id="likeBtn" onclick="doLike()" style="background:none; border:2px solid var(--primary); color:white; width:100%; padding:10px; border-radius:15px; font-family:'Orbitron'; margin-bottom:15px; cursor:pointer;">
+                        <i class="fas fa-thumbs-up"></i> <span id="likeCount">70</span> Like
                     </button>
 
                     <div class="section-box">
                         <a href="https://t.me/tiny_world_me_1" target="_blank" class="link-card"><div><i class="fab fa-telegram" style="color: #26A5E4;"></i> Tiny world yozuvchilik</div><i class="fas fa-chevron-right"></i></a>
                         <a href="https://t.me/uzclaver_e" target="_blank" class="link-card"><div><i class="fab fa-telegram" style="color: #26A5E4;"></i> Telegram gaming</div><i class="fas fa-chevron-right"></i></a>
                         <a href="https://youtube.com/@uzclaver_official" target="_blank" class="link-card" style="border-left: 3px solid #FF0000;"><div><i class="fab fa-youtube" style="color: #FF0000;"></i> YouTube asosiy</div><i class="fas fa-chevron-right"></i></a>
-                        <a href="https://youtube.com/@kulaver_1" target="_blank" class="link-card" style="border-left: 3px solid #FF0000;"><div><i class="fab fa-youtube" style="color: #FF0000;"></i> YouTube reaksiya kanal</div><i class="fas fa-chevron-right"></i></a>
-                        <a href="https://discord.gg/kEXEbrfgR" target="_blank" class="link-card"><div><i class="fab fa-discord" style="color: #5865F2;"></i> Discord Server</div><i class="fas fa-chevron-right"></i></a>
-                        <a href="https://instagram.com/uzclaver_official" target="_blank" class="link-card"><div><i class="fab fa-instagram" style="color: #E4405F;"></i> Instagram</div><i class="fas fa-chevron-right"></i></a>
-                        <a href="https://idonate.uz/d/Uzclaver" target="_blank" class="link-card" style="border: 1px solid #ffbc00;"><div><i class="fas fa-heart" style="color: #ffbc00;"></i> IdonateUz - Qo'llab quvvatlash uchun </div><i class="fas fa-chevron-right"></i></a>
+                        <a href="https://idonate.uz/d/Uzclaver" target="_blank" class="link-card" style="border: 1px solid #ffbc00;"><div><i class="fas fa-heart" style="color: #ffbc00;"></i> Donate</div><i class="fas fa-chevron-right"></i></a>
+                    </div>
+
+                    <div class="footer-info">
+                        <div class="hint-info">Media pleyer uchun suring →</div>
+                        <div class="tag-info">@uzclaver</div>
                     </div>
                 </div>
             </div>
@@ -96,16 +94,15 @@
                 <div class="container">
                     <div class="player-panel">
                         <div id="playlistDrawer" style="display:none; position:absolute; top:0; left:0; width:100%; height:100%; background:#0a192f; z-index:100; padding:15px; border-radius:18px; border:1px solid var(--primary);">
-                            <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:0.8rem;"><span>MUSIQA RO'YXATI</span><i class="fas fa-times" onclick="togglePlaylist()" style="cursor:pointer"></i></div>
+                            <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:0.8rem;"><span>RO'YXAT</span><i class="fas fa-times" onclick="togglePlaylist()" style="cursor:pointer"></i></div>
                             <div id="playlistItems" style="overflow-y:auto; height:85%; text-align:left;"></div>
                         </div>
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                            <span id="trackName" style="font-size:0.75rem; color:var(--primary); font-family:'JetBrains Mono'; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:75%;">Choosing...</span>
+                            <span id="trackName" style="font-size:0.75rem; color:var(--primary); font-family:'JetBrains Mono'; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:75%;">Musiqa...</span>
                             <i class="fas fa-list-ul" onclick="togglePlaylist()" style="color:var(--primary); cursor:pointer"></i>
                         </div>
                         <div class="progress-container" onclick="seek(event)"><div class="progress-bar" id="progressBar"></div></div>
-                        <div style="display:flex; justify-content:space-between; font-size:0.65rem; margin-bottom:10px; color:var(--primary);"><span id="currentTime">0:00</span><span id="durationTime">0:00</span></div>
-                        <div style="display:flex; justify-content:center; align-items:center; gap:25px;">
+                        <div style="display:flex; justify-content:center; align-items:center; gap:25px; margin-top:10px;">
                             <i class="fas fa-step-backward" onclick="prevTrack()" style="cursor:pointer"></i>
                             <div class="play-pause" onclick="togglePlay()"><i id="playIcon" class="fas fa-play"></i></div>
                             <i class="fas fa-step-forward" onclick="nextTrack()" style="cursor:pointer"></i>
@@ -120,6 +117,11 @@
                             <source src="YouCut_20260217_014023852.mp4" type="video/mp4">
                         </video>
                     </div>
+
+                    <div class="footer-info">
+                        <div class="hint-info">← Orqaga suring</div>
+                        <div class="tag-info">@uzclaver</div>
+                    </div>
                 </div>
             </div>
 
@@ -128,7 +130,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        const swiper = new Swiper(".mySwiper", { grabCursor: true, effect: "creative", creativeEffect: { prev: { translate: ["-120%", 0, -500] }, next: { translate: ["120%", 0, -500] } } });
+        const swiper = new Swiper(".mySwiper", { speed: 600 });
         
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
@@ -137,18 +139,18 @@
         class Particle {
             constructor(x, y) {
                 this.x = x; this.y = y;
-                this.size = Math.random() * 4 + 2;
-                this.speedX = Math.random() * 2 - 1;
-                this.speedY = Math.random() * 2 - 1;
-                this.color = 'rgba(0, 212, 255, 0.7)';
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+                this.color = 'rgba(0, 212, 255, 0.4)';
             }
-            update() { this.x += this.speedX; this.y += this.speedY; if (this.size > 0.1) this.size -= 0.08; }
+            update() { this.x += this.speedX; this.y += this.speedY; if (this.size > 0.1) this.size -= 0.02; }
             draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
         }
         function handleParticles(e) {
             const x = e.touches ? e.touches[0].clientX : e.clientX;
             const y = e.touches ? e.touches[0].clientY : e.clientY;
-            for (let i = 0; i < 4; i++) particles.push(new Particle(x, y));
+            for (let i = 0; i < 2; i++) particles.push(new Particle(x, y));
         }
         window.addEventListener('mousemove', handleParticles);
         window.addEventListener('touchstart', handleParticles);
@@ -165,17 +167,9 @@
         const audio = document.getElementById('mainAudio');
         const video = document.getElementById('customVideo');
         const playlist = [
-            { title: "Zanjirlangan yurak Hamdam & Ziyoda", src: "2_5260726744461106162.mp3" },
+            { title: "Zanjirlangan yurak", src: "2_5260726744461106162.mp3" },
             { title: "Soul collision", src: "2_5285029761070954149 (1).mp3" },
-            { title: "Polina Gagarina kukushka", src: "2_5332533722862355580.mp3" },
-            { title: "Saved song by AI", src: "2_5375505377464970935.mp3" },
-            { title: "Mind made up by AI", src: "2_5285029761070954069.mp3" },
-            { title: "Through the Veil", src: "Through the Veil (1).mp3" },
-            { title: "Silent Hill", src: "Silent hill.mp3" },
-            { title: "Nonusual things", src: "Nonusual things (3).mp3" },
-            { title: "Fire in My Veins", src: "Fire in My Veins (1).mp3" },
-            { title: "Derniere regardes", src: "Derniere regardes.mp3" },
-            { title: "KAI ENGEL - NOVEMBER", src: "Kai Engel - November (1).mp3" }
+            { title: "Polina Gagarina", src: "2_5332533722862355580.mp3" }
         ];
         let currentTrack = 0;
         let audioInit = false;
@@ -190,8 +184,8 @@
             else { audio.pause(); document.getElementById('playIcon').className = 'fas fa-play'; }
         }
 
-        function nextTrack() { video.pause(); currentTrack = (currentTrack + 1) % playlist.length; loadTrack(currentTrack); audio.play(); document.getElementById('playIcon').className = 'fas fa-pause'; }
-        function prevTrack() { video.pause(); currentTrack = (currentTrack - 1 + playlist.length) % playlist.length; loadTrack(currentTrack); audio.play(); document.getElementById('playIcon').className = 'fas fa-pause'; }
+        function nextTrack() { currentTrack = (currentTrack + 1) % playlist.length; loadTrack(currentTrack); audio.play(); document.getElementById('playIcon').className = 'fas fa-pause'; }
+        function prevTrack() { currentTrack = (currentTrack - 1 + playlist.length) % playlist.length; loadTrack(currentTrack); audio.play(); document.getElementById('playIcon').className = 'fas fa-pause'; }
         
         function togglePlaylist() { 
             const dr = document.getElementById('playlistDrawer');
@@ -203,7 +197,7 @@
                     const d = document.createElement('div');
                     d.style = `padding:8px; font-size:0.75rem; color:${i===currentTrack?'var(--primary)':'white'}; cursor:pointer; border-bottom:1px solid rgba(0,212,255,0.1)`;
                     d.innerHTML = `${i+1}. ${t.title}`;
-                    d.onclick = () => { video.pause(); currentTrack=i; loadTrack(i); audio.play(); togglePlaylist(); document.getElementById('playIcon').className='fas fa-pause'; };
+                    d.onclick = () => { currentTrack=i; loadTrack(i); audio.play(); togglePlaylist(); document.getElementById('playIcon').className='fas fa-pause'; };
                     items.appendChild(d);
                 });
             }
@@ -211,17 +205,12 @@
         audio.ontimeupdate = () => {
             const pct = (audio.currentTime / audio.duration) * 100 || 0;
             document.getElementById('progressBar').style.width = pct + '%';
-            document.getElementById('currentTime').textContent = formatTime(audio.currentTime);
-            document.getElementById('durationTime').textContent = formatTime(audio.duration || 0);
         };
-        function formatTime(s) { const m=Math.floor(s/60), r=Math.floor(s%60); return `${m}:${r<10?'0'+r:r}`; }
         function seek(e) { const rect = document.querySelector('.progress-container').getBoundingClientRect(); audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration; }
-        function doLike() { document.getElementById('likeCount').textContent = "70"; document.getElementById('likeBtn').style.borderColor = "#00ff9d"; }
+        function doLike() { document.getElementById('likeCount').textContent = "71"; document.getElementById('likeBtn').style.borderColor = "#00ff9d"; }
 
-        window.onload = () => {
-            setInterval(() => { document.getElementById('clock').textContent = new Date().toLocaleTimeString('en-GB', {timeZone:'Asia/Tashkent', hour12:false}); }, 1000);
-            loadTrack(0);
-        };
+        setInterval(() => { document.getElementById('clock').textContent = new Date().toLocaleTimeString('en-GB', {hour12:false}); }, 1000);
+        loadTrack(0);
     </script>
 </body>
 </html>
