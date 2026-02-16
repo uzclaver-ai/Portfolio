@@ -33,6 +33,7 @@
         .link-card:hover { transform: scale(1.02); background: rgba(17, 34, 64, 1); border-color: var(--primary); }
         .yt-border { border: 2px solid var(--yt-color) !important; }
 
+        /* PLAYER & PLAYLIST STYLES */
         .player-panel { margin-top: 25px; padding: 15px; background: rgba(0, 212, 255, 0.05); border: 1px solid var(--primary); border-radius: 15px; display: flex; flex-direction: column; gap: 8px; position: relative; overflow: hidden; }
         .track-info-line { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0, 212, 255, 0.2); padding-bottom: 5px; }
         .track-title { font-size: 0.8rem; font-family: 'JetBrains Mono'; color: var(--primary); text-shadow: 0 0 5px var(--primary); }
@@ -58,6 +59,7 @@
 <body onclick="handleUserInteract(event)">
     <audio id="introAudio"><source src="intro.mp3" type="audio/mpeg"></audio>
     <audio id="mainAudio"></audio>
+    
     <div id="welcome-screen"><div class="welcome-text">Assalomu alaykum!</div></div>
     <div class="bottom-right-tag">MUROJAAT UCHUN: @uzclaver</div>
 
@@ -136,13 +138,15 @@
             const intro = document.getElementById('introAudio'); if(intro.paused && intro.currentTime === 0) { intro.play().catch(e => {}); }
         }
 
+        // YANGILANGAN PLAYLIST
         const playlist = [
             { title: "Mind made up by AI", src: "2_5285029761070954069.mp3" },
             { title: "Through the Veil", src: "Through the Veil (1).mp3" },
             { title: "Silent Hill", src: "Silent hill.mp3" },
             { title: "Nonusual things", src: "Nonusual things (3).mp3" },
             { title: "Fire in My Veins", src: "Fire in My Veins (1).mp3" },
-            { title: "Derniere regardes", src: "Derniere regardes.mp3" }
+            { title: "Derniere regardes", src: "Derniere regardes.mp3" },
+            { title: "KAI ENGEL - NOVEMBER", src: "Kai Engel - November (1).mp3" }
         ];
 
         let currentTrackIndex = 0;
