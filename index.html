@@ -11,7 +11,6 @@
         :root { --primary: #00d4ff; --bg-dark: #020617; }
         body { margin: 0; padding: 0; min-height: 100vh; display: flex; justify-content: center; align-items: center; background: #020617 linear-gradient(135deg, #020617 0%, #0a192f 50%, #020617 100%) no-repeat; font-family: 'Segoe UI', sans-serif; color: #ccd6f6; overflow-x: hidden; }
         
-        /* INTRO SCREEN */
         #welcome-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-dark); display: flex; justify-content: center; align-items: center; z-index: 9999; animation: fadeOut 2.8s forwards; pointer-events: none; }
         .welcome-text { font-size: 1.8rem; color: var(--primary); font-family: 'JetBrains Mono', monospace; border-right: 3px solid var(--primary); white-space: nowrap; overflow: hidden; width: 0; animation: typing 1.5s steps(18) forwards; }
         @keyframes typing { from { width: 0 } to { width: 280px } }
@@ -24,7 +23,6 @@
         .name { font-size: 2.1rem; margin: 0; color: #fff; font-family: 'Orbitron', sans-serif; }
         #clock { font-family: 'Orbitron', sans-serif; color: var(--primary); font-size: 1.6rem; margin: 10px 0; }
         
-        /* RGB STATUS */
         .status { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; margin-bottom: 20px; font-weight: bold; animation: rgbEffect 4s infinite linear; }
         @keyframes rgbEffect {
             0%, 100% { color: #ff00c1; text-shadow: 0 0 5px #ff00c1; }
@@ -32,32 +30,28 @@
             66% { color: #00ff9d; text-shadow: 0 0 5px #00ff9d; }
         }
 
-        /* LIKE AREA */
         .like-area { position: relative; margin-bottom: 25px; }
         #thanks-msg { display: none; opacity: 0; color: #00ff9d; font-weight: bold; font-family: 'JetBrains Mono'; transition: 0.5s; margin-bottom: 8px; font-size: 0.9rem; }
         .like-btn { background: rgba(0, 212, 255, 0.05); border: 2px solid var(--primary); color: white; padding: 12px; border-radius: 15px; width: 100%; cursor: pointer; transition: 0.3s; font-family: 'Orbitron'; outline: none; }
         .like-btn:disabled { cursor: default; border-color: #00ff9d; opacity: 0.8; }
 
-        /* SECTIONS BORDER */
         .section-box { border: 1px solid rgba(0, 212, 255, 0.3); padding: 12px; border-radius: 20px; background: rgba(0,0,0,0.2); margin-bottom: 20px; }
         .link-card { display: flex; align-items: center; justify-content: space-between; background: rgba(17, 34, 64, 0.8); border: 1px solid rgba(0, 212, 255, 0.1); padding: 14px 18px; border-radius: 12px; margin-bottom: 8px; text-decoration: none; color: #ccd6f6; transition: 0.3s; font-size: 0.9rem; }
         .link-card:last-child { margin-bottom: 0; }
         .link-card:hover { border-color: var(--primary); background: rgba(17, 34, 64, 1); }
 
-        /* PLAYER */
         .player-panel { padding: 15px; background: rgba(0, 212, 255, 0.05); border: 2px solid var(--primary); border-radius: 20px; position: relative; }
         .track-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
         .track-title { font-size: 0.85rem; font-family: 'JetBrains Mono'; color: var(--primary); width: 80%; text-align: left; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
         .progress-container { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 10px; cursor: pointer; margin-bottom: 5px; }
-        .progress-bar { width: 0%; height: 100%; background: var(--primary); border-radius: 10px; box-shadow: 0 0 8px var(--primary); transition: width 0.1s linear; }
+        .progress-bar { width: 0%; height: 100%; background: var(--primary); border-radius: 10px; box-shadow: 0 0 8px var(--primary); }
         .time-info { display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--primary); margin-bottom: 15px; }
         .controls { display: flex; justify-content: center; align-items: center; gap: 25px; }
         .play-pause { width: 55px; height: 55px; background: var(--primary); color: #000; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 1.2rem; }
         
         .playlist-drawer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #0a192f; z-index: 30; display: none; flex-direction: column; padding: 15px; box-sizing: border-box; border-radius: 18px; border: 1px solid var(--primary); }
         .playlist-drawer.active { display: flex; }
-        .playlist-item { padding: 10px; border-bottom: 1px solid rgba(0,212,255,0.1); cursor: pointer; font-size: 0.8rem; text-align: left; transition: 0.2s; }
-        .playlist-item:hover { background: rgba(0,212,255,0.1); }
+        .playlist-item { padding: 10px; border-bottom: 1px solid rgba(0,212,255,0.1); cursor: pointer; font-size: 0.8rem; text-align: left; }
 
         .bottom-right-tag { position: fixed; bottom: 15px; right: 15px; background: var(--primary); color: #000; padding: 8px 12px; border-radius: 5px; font-weight: bold; font-size: 0.75rem; z-index: 100; }
     </style>
@@ -102,7 +96,7 @@
                 <div id="playlistItems" style="overflow-y: auto;"></div>
             </div>
             <div class="track-info">
-                <span id="trackName" class="track-title">Musiqa tanlanmoqda...</span>
+                <span id="trackName" class="track-title">Tanlanmoqda...</span>
                 <i class="fas fa-list-ul" onclick="togglePlaylist()" style="color:var(--primary); cursor:pointer"></i>
             </div>
             <div class="progress-container" onclick="seek(event)"><div class="progress-bar" id="progressBar"></div></div>
@@ -117,38 +111,34 @@
 
     <script>
         const audio = document.getElementById('mainAudio');
+        
+        // YANGILANGAN PLAYLIST RO'YXATI
         const playlist = [
-            { title: "Mind made up by AI", src: "2_5285029761070954069.mp3" },
-            { title: "Through the Veil", src: "Through the Veil (1).mp3" },
-            { title: "Silent Hill", src: "Silent hill.mp3" },
-            { title: "Nonusual things", src: "Nonusual things (3).mp3" },
-            { title: "Fire in My Veins", src: "Fire in My Veins (1).mp3" },
-            { title: "Derniere regardes", src: "Derniere regardes.mp3" },
-            { title: "KAI ENGEL - NOVEMBER", src: "Kai Engel - November (1).mp3" }
+            { title: "Zanjirlangan yurak Hamdam sobirov & Ziyoda", src: "2_5260726744461106162.mp3" },
+            { title: "Soul collision", src: "2_5285029761070954069.mp3" },
+            { title: "Polina Gagarina kukushka", src: "2_5332533722862355580.mp3" },
+            { title: "Saved song by AI", src: "2_5375505377464970935.mp3" }
         ];
+
         let currentTrack = 0;
         let audioInit = false;
 
         function startAudio() { if(!audioInit) { document.getElementById('introAudio').play().catch(()=>{}); audioInit = true; } }
 
-        // LAYK TIZIMI
         function doLike() {
             const thanksMsg = document.getElementById('thanks-msg');
             const likeBtn = document.getElementById('likeBtn');
             const countSpan = document.getElementById('likeCount');
-            
             countSpan.textContent = "70";
             thanksMsg.style.display = 'block';
             setTimeout(() => { thanksMsg.style.opacity = '1'; }, 10);
             likeBtn.disabled = true;
-
             setTimeout(() => {
                 thanksMsg.style.opacity = '0';
                 setTimeout(() => { thanksMsg.style.display = 'none'; }, 500);
             }, 3000);
         }
 
-        // PLEYER FUNKSIYALARI
         function togglePlaylist() { document.getElementById('playlistDrawer').classList.toggle('active'); renderPlaylist(); }
         
         function renderPlaylist() {
@@ -181,7 +171,7 @@
         }
 
         function nextTrack() {
-            currentTrack = (currentTrack + 1) % playlist.length; // 7 dan keyin 1 ga qaytadi
+            currentTrack = (currentTrack + 1) % playlist.length;
             loadTrack(currentTrack);
             audio.play();
             document.getElementById('playIcon').className = 'fas fa-pause';
@@ -194,10 +184,7 @@
             document.getElementById('playIcon').className = 'fas fa-pause';
         }
 
-        // AVTOMATIK O'TISH (LOOP)
-        audio.onended = () => {
-            nextTrack(); // Tugashi bilan keyingisi, oxirgi bo'lsa birinchisiga
-        };
+        audio.onended = () => { nextTrack(); };
 
         audio.ontimeupdate = () => {
             const pct = (audio.currentTime / audio.duration) * 100 || 0;
