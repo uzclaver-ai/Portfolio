@@ -250,64 +250,113 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 <script>
-    const container = document.getElementById('canvas-container');
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+ <!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>UzClaver | AI Scanner</title>
+    <style>
+        body { margin: 0; background: #000; overflow: hidden; font-family: 'JetBrains Mono', monospace; }
+        #ui-overlay { position: absolute; top: 20px; width: 100%; text-align: center; color: #00ff00; z-index: 10; pointer-events: none; }
+        .status-text { font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 10px #00ff00; }
+        
+        /* Kamera stream oynasi (kichikroq, burchakda) */
+        #video-container { position: absolute; bottom: 20px; right: 20px; width: 200px; height: 150px; border: 2px solid #00ff00; border-radius: 10px; overflow: hidden; z-index: 5; opacity: 0.7; }
+        video { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
+        canvas#output_canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform: scaleX(-1); }
+        
+        #earth-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    </style>
+</head>
+<body>
 
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    container.appendChild(renderer.domElement);
+    <div id="ui-overlay">
+        <div class="status-text">SYSTEM SCANNED: HAND CONTROL ACTIVE</div>
+        <p>Kaftingizni oching va Yer sharini boshqaring</p>
+    </div>
 
-    // Rasmdagi kabi murakkab tugun shakli (TorusKnot)
-    const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
-    const material = new THREE.MeshBasicMaterial({ 
-        color: 0x00FF00, // Neon yashil
-        wireframe: true, 
-        transparent: true, 
-        opacity: 0.5 
-    });
-    const mesh = new THREE.Mesh(geometry, material);
-    scene.add(mesh);
+    <div id="video-container">
+        <video id="webcam" autoplay playsinline></video>
+        <canvas id="output_canvas"></canvas>
+    </div>
 
-    camera.position.z = 30;
+    <div id="earth-canvas"></div>
 
-    // Interaktivlik uchun koordinatalar
-    let mouseX = 0, mouseY = 0;
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0"></script>
 
-    document.addEventListener('mousemove', (e) => {
-        mouseX = (e.clientX - window.innerWidth / 2) / 100;
-        mouseY = (e.clientY - window.innerHeight / 2) / 100;
-    });
-
-    // Touch (qo'l bilan boshqarish simulyatsiyasi)
-    document.addEventListener('touchmove', (e) => {
-        mouseX = (e.touches[0].clientX - window.innerWidth / 2) / 50;
-        mouseY = (e.touches[0].clientY - window.innerHeight / 2) / 50;
-    });
-
-    function animate() {
-        requestAnimationFrame(animate);
-
-        // Doimiy aylanish
-        mesh.rotation.x += 0.005;
-        mesh.rotation.y += 0.005;
-
-        // Boshqaruvga qarab og'ish
-        mesh.rotation.x += (mouseY - mesh.rotation.x) * 0.05;
-        mesh.rotation.y += (mouseX - mesh.rotation.y) * 0.05;
-
-        renderer.render(scene, camera);
-    }
-
-    window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
+    <script>
+        // 1. THREE.JS: 3D YER SHARI
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
-    });
+        document.getElementById('earth-canvas').appendChild(renderer.domElement);
 
-    animate();
-</script>
+        // Yer shari (Wireframe ko'rinishida)
+        const geometry = new THREE.SphereGeometry(12, 32, 32);
+        const material = new THREE.MeshBasicMaterial({ 
+            color: 0x00ff00, 
+            wireframe: true,
+            transparent: true,
+            opacity: 0.6
+        });
+        const earth = new THREE.Mesh(geometry, material);
+        scene.add(earth);
+        camera.position.z = 30;
 
+        // 2. MEDIAPIPE: QO'LNI ANIQLASH
+        let handLandmarker;
+        const webcam = document.getElementById("webcam");
+        const canvasElement = document.getElementById("output_canvas");
+        const canvasCtx = canvasElement.getContext("2d");
+
+        async function initHandTracking() {
+            const vision = await createFilesetResolver({
+                basePath: "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm",
+            });
+            handLandmarker = await HandLandmarker.createFromOptions(vision, {
+                baseOptions: { modelAssetPath: "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task" },
+                runningMode: "VIDEO",
+                numHands: 1
+            });
+            startCamera();
+        }
+
+        function startCamera() {
+            navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
+                webcam.srcObject = stream;
+                webcam.addEventListener("loadeddata", predictWebcam);
+            });
+        }
+
+        async function predictWebcam() {
+            let nowInMs = Date.now();
+            const results = handLandmarker.detectForVideo(webcam, nowInMs);
+            
+            if (results.landmarks && results.landmarks.length > 0) {
+                const hand = results.landmarks[0];
+                // Ko'rsatkich barmoq uchi (8-nuqta) orqali Yer sharini aylantirish
+                const x = (hand[8].x - 0.5) * 2;
+                const y = (hand[8].y - 0.5) * 2;
+
+                earth.rotation.y += x * 0.1;
+                earth.rotation.x += y * 0.1;
+            }
+
+            renderer.render(scene, camera);
+            window.requestAnimationFrame(predictWebcam);
+        }
+
+        // Ishga tushirish
+        const { HandLandmarker, FilesetResolver } = await import("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0");
+        initHandTracking();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
 </body>
 </html>
