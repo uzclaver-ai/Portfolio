@@ -165,6 +165,151 @@ scene.add(torus);
 function animate3D(){requestAnimationFrame(animate3D);torus.rotation.x+=0.003;torus.rotation.y+=0.004;renderer.render(scene,camera);}
 animate3D();
 </script>
+<!-- THREE.JS CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script>
+/* =========================
+   1️⃣ SOAT (GMT+5 TOSHKENT)
+========================= */
+function updateClock() {
+  const clock = document.querySelector("#clock, .clock, [data-clock]");
+  if (!clock) return;
+
+  const now = new Date();
+  const uzTime = new Date(now.getTime() + (5 * 60 * 60 * 1000));
+  const h = String(uzTime.getUTCHours()).padStart(2,'0');
+  const m = String(uzTime.getUTCMinutes()).padStart(2,'0');
+  const s = String(uzTime.getUTCSeconds()).padStart(2,'0');
+  clock.textContent = `${h}:${m}:${s}`;
+}
+setInterval(updateClock, 1000);
+
+
+/* =========================
+   2️⃣ LIKE TUGMASI
+========================= */
+const likeBtn = document.querySelector(".like-btn, #likeBtn");
+if (likeBtn) {
+  let liked = false;
+  let countEl = likeBtn.querySelector(".like-count");
+  let count = countEl ? Number(countEl.textContent) : 69;
+
+  likeBtn.addEventListener("click", () => {
+    liked = !liked;
+    count += liked ? 1 : -1;
+    if (countEl) countEl.textContent = count;
+    likeBtn.style.transform = "scale(1.1)";
+    setTimeout(()=>likeBtn.style.transform="scale(1)",150);
+  });
+}
+
+
+/* =========================
+   3️⃣ BARMOG‘ IZI EFFEKTI
+========================= */
+document.addEventListener("click", function(e){
+  const ripple = document.createElement("div");
+  ripple.style.position="fixed";
+  ripple.style.left=e.clientX+"px";
+  ripple.style.top=e.clientY+"px";
+  ripple.style.width="20px";
+  ripple.style.height="20px";
+  ripple.style.borderRadius="50%";
+  ripple.style.border="2px solid #00f0ff";
+  ripple.style.pointerEvents="none";
+  ripple.style.transform="translate(-50%,-50%)";
+  ripple.style.animation="ripple 0.6s ease-out";
+  document.body.appendChild(ripple);
+  setTimeout(()=>ripple.remove(),600);
+});
+
+const style = document.createElement("style");
+style.innerHTML=`
+@keyframes ripple{
+  from{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  to{opacity:0;transform:translate(-50%,-50%) scale(5)}
+}`;
+document.head.appendChild(style);
+
+
+        // 2. Playlist (To'liq 11 ta)
+        const playlist = [
+            { title: "Zanjirlangan yurak", src: "2_5260726744461106162.mp3" },
+            { title: "Soul collision", src: "2_5285029761070954149 (1).mp3" },
+            { title: "Polina Gagarina - kukushka", src: "2_5332533722862355580.mp3" },
+            { title: "Saved song AI", src: "2_5375505377464970935.mp3" },
+            { title: "Mind made up", src: "2_5285029761070954069.mp3" },
+            { title: "Through the Veil", src: "Through the Veil (1).mp3" },
+            { title: "Silent Hill", src: "Silent hill.mp3" },
+            { title: "Nonusual things", src: "Nonusual things (3).mp3" },
+            { title: "Fire in My Veins", src: "Fire in My Veins (1).mp3" },
+            { title: "Derniere regardes", src: "Derniere regardes.mp3" },
+            { title: "Kai Engel - November", src: "Kai Engel - November (1).mp3" }
+        ];
+        let currentTrack = 0;
+
+        function loadTrack(idx) {
+            audio.src = encodeURI(playlist[idx].src);
+            document.getElementById('trackName').textContent = playlist[idx].title;
+        }
+
+        function togglePlay() {
+            video.pause();
+            if(audio.paused) { audio.play(); document.getElementById('playIcon').className = 'fas fa-pause'; }
+            else { audio.pause(); document.getElementById('playIcon').className = 'fas fa-play'; }
+        }
+
+        function nextTrack() { currentTrack = (currentTrack + 1) % playlist.length; loadTrack(currentTrack); audio.play(); }
+        function prevTrack() { currentTrack = (currentTrack - 1 + playlist.length) % playlist.length; loadTrack(currentTrack); audio.play(); }
+
+/* 
+/* =========================
+   5️⃣ 3D YER SHARI (HAND CONTROL)
+========================= */
+const container = document.createElement("div");
+container.style.position="fixed";
+container.style.inset="0";
+container.style.zIndex="0";
+document.body.appendChild(container);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({alpha:true});
+renderer.setSize(innerWidth, innerHeight);
+container.appendChild(renderer.domElement);
+
+const geometry = new THREE.SphereGeometry(2, 64, 64);
+const material = new THREE.MeshBasicMaterial({
+  color: 0x00ff88,
+  wireframe: true
+});
+const earth = new THREE.Mesh(geometry, material);
+scene.add(earth);
+
+camera.position.z = 5;
+
+let mouseX=0, mouseY=0;
+
+document.addEventListener("mousemove", e=>{
+  mouseX = (e.clientX / innerWidth - 0.5)*2;
+  mouseY = (e.clientY / innerHeight - 0.5)*2;
+});
+
+function animate(){
+  requestAnimationFrame(animate);
+  earth.rotation.y += 0.01 + mouseX*0.02;
+  earth.rotation.x += mouseY*0.01;
+  renderer.render(scene, camera);
+}
+animate();
+
+window.addEventListener("resize", ()=>{
+  renderer.setSize(innerWidth, innerHeight);
+  camera.aspect = innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+});
+</script>
 
 </body>
 </html>
